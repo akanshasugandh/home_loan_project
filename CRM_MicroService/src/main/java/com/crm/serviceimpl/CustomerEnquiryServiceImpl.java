@@ -1,5 +1,7 @@
 package com.crm.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,13 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	public void saveEnquiry(CustomerEnquiry ce) 
 	{
 		repository.save(ce);
+	}
+
+	@Override
+	public List getCustomerEnquiry() 
+	{
+		List<CustomerEnquiry> al=repository.findAll();
+		return al;
 	}
 
 }
