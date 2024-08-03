@@ -12,4 +12,6 @@ public interface CustomerEnquiryServiceI {
 
 	public  CustomerEnquiry getByCuId(int customerEnquiryId);
 
+	public void deleteCustomerEnquiryById(int customerEnquiryId);
+
 }
