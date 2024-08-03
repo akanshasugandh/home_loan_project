@@ -44,6 +44,13 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	}
 
 
+	@Override
+	public void deleteCustomerEnquiryById(int customerEnquiryId) {
+		   repository.deleteById(customerEnquiryId);		
+	}
+
+
+
 	
 
 }
