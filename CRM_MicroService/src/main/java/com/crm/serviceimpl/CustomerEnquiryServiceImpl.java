@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.CustomeException.EnquiryNotFoundException;
 import com.crm.model.CustomerEnquiry;
 import com.crm.repository.CustomerEnquiryRepository;
 import com.crm.servicei.CustomerEnquiryServiceI;
@@ -38,7 +39,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 		}
 		else
 		{
-			return null;	
+      throw new EnquiryNotFoundException("Enquiry Not found For  This Id");
 		}
 		
 	}
