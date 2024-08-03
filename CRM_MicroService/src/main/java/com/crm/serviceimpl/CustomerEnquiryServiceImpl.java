@@ -1,6 +1,7 @@
 package com.crm.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,27 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	}
 
 	@Override
-	public List getCustomerEnquiry() 
+	public List<CustomerEnquiry> getCustomerEnquiry() 
 	{
 		List<CustomerEnquiry> al=repository.findAll();
 		return al;
 	}
+	
+	@Override
+	public CustomerEnquiry getByCuId(int customerEnquiryId) 
+	{
+		Optional<CustomerEnquiry> ce = repository.findById(customerEnquiryId);
+		if(ce.isPresent())
+		{
+			return ce.get();
+		}
+		else
+		{
+			return null;	
+		}
+		
+	}
+
+	
 
 }

@@ -8,6 +8,8 @@ public interface CustomerEnquiryServiceI {
 
 	public void saveEnquiry(CustomerEnquiry ce);
 
-	public List getCustomerEnquiry();
+	public List<CustomerEnquiry> getCustomerEnquiry();
+
+	public  CustomerEnquiry getByCuId(int customerEnquiryId);
 
 }
