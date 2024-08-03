@@ -14,16 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crm.model.CustomerEnquiry;
 import com.crm.servicei.CustomerEnquiryServiceI;
 
+import com.crm.model.EmailDetails;
+import com.crm.servicei.EmailServiceI;
+
 @RestController
 public class CustomerEnquiryController
 {
 	@Autowired private CustomerEnquiryServiceI servicei;
+	
+	@Autowired private EmailServiceI emailservicei;
 	
 	@PostMapping("/saveEnquiryDetails")
 	public ResponseEntity<String> saveEnquiryDetails(@RequestBody CustomerEnquiry ce)
 	{
 		String str="Enquiry details saved successfully!";
 		servicei.saveEnquiry(ce);
+		EmailDetails ed=new EmailDetails();
+		ed.setToEmail(ce.getEmailId());
+		emailservicei.sendEmail(ed);
 		return new ResponseEntity<String>(str, HttpStatus.OK);
 	}
 	
