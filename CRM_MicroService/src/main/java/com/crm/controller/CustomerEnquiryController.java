@@ -1,6 +1,9 @@
 package com.crm.controller;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ import com.crm.servicei.EmailServiceI;
 @RestController
 public class CustomerEnquiryController
 {
+	private static Logger log= LoggerFactory.getLogger(CustomerEnquiryController.class);
 	@Autowired private CustomerEnquiryServiceI servicei;
 	
 	@Autowired private EmailServiceI emailservicei;
@@ -27,6 +31,7 @@ public class CustomerEnquiryController
 	@PostMapping("/saveEnquiryDetails")
 	public ResponseEntity<String> saveEnquiryDetails(@RequestBody CustomerEnquiry ce)
 	{
+		log.info("info()...CustomerEnquiry Saved.....");
 		String str="Enquiry details saved successfully!";
 		servicei.saveEnquiry(ce);
 		EmailDetails ed=new EmailDetails();
@@ -38,6 +43,11 @@ public class CustomerEnquiryController
 	@GetMapping("/getAllEnquiry")
 	public List<CustomerEnquiry> getCustomerEnquiry()
 	{
+		log.info("info()...getAllEnquiry().....");
+		log.warn("warn()..getAllEnquiry().....");
+		log.error("error()...getAllEnquiry().....");
+		log.debug("debug()...getAllEnquiry().....");
+		log.trace("trace()...getAllEnquiry().....");
 		List<CustomerEnquiry> al=servicei.getCustomerEnquiry(); 
 		return al;
 	}
