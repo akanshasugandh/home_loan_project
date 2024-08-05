@@ -26,6 +26,10 @@ public interface CustomerEnquiryServiceI {
 
 	public List<CustomerEnquiry> getAllByCusLoanStatus(String loanStatus);
 
+	public CustomerEnquiry getCustByContact(long contactNumber);
+
+	public CustomerEnquiry getCustByPancard(String pancardNumber);
+
 
 
 

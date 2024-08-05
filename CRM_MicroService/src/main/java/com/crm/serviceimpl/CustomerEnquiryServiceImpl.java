@@ -13,6 +13,8 @@ import com.crm.CustomeException.InvalidAgeException;
 import com.crm.CustomeException.LastNameNotFoundExcep;
 import com.crm.CustomeException.LoanStatusNotFoundException;
 import com.crm.CustomeException.NameNotFoundException;
+import com.crm.CustomeException.PancardNotExistException;
+import com.crm.CustomeException.PhonenoNotExistException;
 import com.crm.model.CustomerEnquiry;
 import com.crm.repository.CustomerEnquiryRepository;
 import com.crm.servicei.CustomerEnquiryServiceI;
@@ -124,13 +126,35 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 		}
 	}
 
-	
-
-	
-
-	
-	
-
-	
-	
+	@Override
+	public CustomerEnquiry getCustByContact(long contactNumber)
+	{
+		Optional<CustomerEnquiry> ce = repository.findByContactNo(contactNumber);
+		if(ce.isPresent())
+		{
+			return ce.get();
+		}
+		else
+		{
+          throw new PhonenoNotExistException("Invalid Contact Number..");
+		}  
+	    
 	}
+
+	@Override
+	public CustomerEnquiry getCustByPancard(String pancardNumber)
+	{		
+		Optional<CustomerEnquiry> ce = repository.findByPancardNo(pancardNumber);
+		if(ce.isPresent())
+		{
+			return ce.get();
+		}
+		else
+		{
+		    throw new PhonenoNotExistException("Invalid Pancard Number..");
+		}  				
+	}
+
+	
+	
+}
