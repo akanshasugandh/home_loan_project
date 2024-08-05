@@ -19,6 +19,12 @@ public interface CustomerEnquiryServiceI {
 	public void deleteCustomerEnquiryById(int customerEnquiryId);
 
 	public CustomerEnquiry findByLastName(String lastName);
+	
+	public CustomerEnquiry getByCusEmailId(String emailId);
+
+	public List<CustomerEnquiry> getAllByCusCibilStatus(String cibilStatus);
+
+	public List<CustomerEnquiry> getAllByCusLoanStatus(String loanStatus);
 
 
 

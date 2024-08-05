@@ -52,6 +52,45 @@ public class GlobalExceptionHandler {
   	  error.setTimeStamp(new Date());
   	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
   	  }
+    
+    @ExceptionHandler
+    public ResponseEntity<EmailApiError> emailIdNotFoundExceptionHandler(EmailIdNotFoundException e, HttpServletRequest request)
+    {
+    	EmailApiError error=new EmailApiError();
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		error.setStatusCode(HttpStatus.NOT_FOUND.value());
+		error.setStatusMessage(HttpStatus.NOT_FOUND);
+		error.setTimeStamp(new Date());
+		return new ResponseEntity<EmailApiError>(error, HttpStatus.NOT_FOUND);
+    }
+    
+    
+    @ExceptionHandler
+    public ResponseEntity<CibilApiError> cibilStatusNotFoundExceptionHandler(CibilStatusNotFoundException e, HttpServletRequest request)
+    {
+		CibilApiError error=new CibilApiError();
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		error.setStatusCode(HttpStatus.NOT_FOUND.value());
+		error.setStatusMessage(HttpStatus.NOT_FOUND);
+		error.setTimeStamp(new Date());
+		return new ResponseEntity<CibilApiError>(error, HttpStatus.NOT_FOUND);
+    }
+    
+    @ExceptionHandler
+    public ResponseEntity<LoanStatusApiError> loanStatusNotFoundExceptionHandler(LoanStatusNotFoundException e, HttpServletRequest request)
+    {
+    	LoanStatusApiError error=new LoanStatusApiError();
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		error.setStatusCode(HttpStatus.NOT_FOUND.value());
+		error.setStatusMessage(HttpStatus.NOT_FOUND);
+		error.setTimeStamp(new Date());
+		return new ResponseEntity<LoanStatusApiError>(error, HttpStatus.NOT_FOUND);
+    	
+    }
+
 
 
 }

@@ -115,6 +115,30 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		return ce3;
 	}
 	
+	@GetMapping("/getByEmailId/{emailId}")
+	public CustomerEnquiry getByEmailId(@PathVariable String emailId)
+	{
+		CustomerEnquiry ce=servicei.getByCusEmailId(emailId);
+		return ce;
+	}
+	
+	@GetMapping("/getAllByCibilStatus/{cibilStatus}")
+	public ResponseEntity<List<CustomerEnquiry>> getAllByCibilStatus(@PathVariable String cibilStatus)
+	{
+		List<CustomerEnquiry> cusList=servicei.getAllByCusCibilStatus(cibilStatus);
+		
+		return new ResponseEntity<List<CustomerEnquiry>>(cusList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllByLoanStatus/{loanStatus}")
+	public ResponseEntity<List<CustomerEnquiry>> getAllByLoanStatus(@PathVariable String loanStatus)
+	{
+		List<CustomerEnquiry> cusList=servicei.getAllByCusLoanStatus(loanStatus);
+		
+		return new ResponseEntity<List<CustomerEnquiry>>(cusList, HttpStatus.OK);
+	}
+	
+	
 	@DeleteMapping("/deleteCustomerEnquiryById/{customerEnquiryId}")
 	public String deleteByCustomerEnquiryByID(@PathVariable("customerEnquiryId")int customerEnquiryId) 
 	{
@@ -125,7 +149,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		log.debug("debug().....delete Customer Enquiry By Id....");
 		log.trace("trace().....delete Customer Enquiry By Id....");
 		return "Customer Enquiry Deleted Successfully....!!1";
-}
+	}
 
 	
 	@PutMapping("/updateDetails/{customerEnquiryId}")
