@@ -31,6 +31,16 @@ public class GlobalExceptionHandler {
   	  error.setTimeStamp(new Date());
   	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
   	  }
+    @ExceptionHandler
+    public ResponseEntity<ApiError>LastNamNtFoundException(LastNameNotFoundExcep lne,HttpServletRequest request){
+  	  ApiError error=new ApiError();
+  	  error.setMessage(lne.getMessage());
+  	  error.setPath(request.getRequestURI());
+  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
+  	  error.setStatusMessage(HttpStatus.ACCEPTED.NOT_FOUND);
+  	  error.setTimeStamp(new Date());
+  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
+  	  }
     
     @ExceptionHandler
     public ResponseEntity<ApiError>AgeNtFoundException(InvalidAgeException ae,HttpServletRequest request){

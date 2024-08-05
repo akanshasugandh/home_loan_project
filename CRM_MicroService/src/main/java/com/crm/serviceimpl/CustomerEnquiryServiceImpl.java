@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.crm.CustomeException.EnquiryNotFoundException;
 import com.crm.CustomeException.InvalidAgeException;
+import com.crm.CustomeException.LastNameNotFoundExcep;
 import com.crm.CustomeException.NameNotFoundException;
 import com.crm.model.CustomerEnquiry;
 import com.crm.repository.CustomerEnquiryRepository;
@@ -52,11 +53,17 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 				+firstName ));
 	}
 	@Override
+	public CustomerEnquiry findByLastName(String lastName) {
+		return repository.findByLastName(lastName).orElseThrow(()->new LastNameNotFoundExcep("Last Name Not Found:"
+				+lastName ));
+	}
+
+	@Override
 	public List<CustomerEnquiry> findByAge(int age) 
 	{
 		if(age<=18|| age>= 65)
 		{
-			throw new InvalidAgeException("Invalid Age....");
+			throw new InvalidAgeException("Age is not Valid....");
 		}
 		
 		return repository.findByAge(age);
@@ -68,6 +75,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 		   repository.deleteById(customerEnquiryId);		
 	}
 
+	
 
 	
 
