@@ -30,6 +30,9 @@ public interface CustomerEnquiryServiceI {
 
 	public CustomerEnquiry getCustByPancard(String pancardNumber);
 
+	public List<CustomerEnquiry> getCustomerEnquiryByAddress(String address);
+
+
 
 
 

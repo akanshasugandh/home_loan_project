@@ -190,5 +190,10 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		log.trace("trace().....update Details()....");
 		return new ResponseEntity<String> ("Customer Details Updated.....",HttpStatus.OK);
 	}
+	@GetMapping("/CustomerEnquiry/{address}")
+	public List<CustomerEnquiry> getCustomerEnquiryByAddress(@PathVariable ("address") String address){
+		  List<CustomerEnquiry> clist=     servicei.getCustomerEnquiryByAddress(address);
+	return clist;
+	}
 
 }
