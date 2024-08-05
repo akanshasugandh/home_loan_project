@@ -122,6 +122,20 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		return ce;
 	}
 	
+	@GetMapping("/getCustByContact/{contactNumber}")
+	public CustomerEnquiry getCustByContact(@PathVariable long contactNumber)
+	{
+		CustomerEnquiry ce = servicei.getCustByContact(contactNumber);
+		return ce;
+	}
+	
+	@GetMapping("/getCustByPancard/{pancardNumber}")
+	public CustomerEnquiry getCustByPancard(@PathVariable String pancardNumber)
+	{
+		CustomerEnquiry ce = servicei.getCustByPancard(pancardNumber);
+		return ce;
+	}
+	
 	@GetMapping("/getAllByCibilStatus/{cibilStatus}")
 	public ResponseEntity<List<CustomerEnquiry>> getAllByCibilStatus(@PathVariable String cibilStatus)
 	{

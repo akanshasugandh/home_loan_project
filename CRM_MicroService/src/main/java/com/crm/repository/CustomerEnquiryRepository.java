@@ -27,7 +27,11 @@ public interface CustomerEnquiryRepository extends JpaRepository<CustomerEnquiry
 	@Query(name = "findAllByLoanStatus", value = "from CustomerEnquiry where loanStatus=?1")
 	public List<CustomerEnquiry> findAllByLoanStatus(String loanStatus);
 	
+	@Query(value="from CustomerEnquiry where contactNumber=:contactNumber")
+	public Optional<CustomerEnquiry> findByContactNo(long contactNumber);
 
+	@Query(value="from CustomerEnquiry where pancardNumber=:pancardNumber")
+	public Optional<CustomerEnquiry> findByPancardNo(String pancardNumber);
 
 
 }
