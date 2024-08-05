@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.crm.model.CustomerEnquiry;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface CustomerEnquiryRepository extends JpaRepository<CustomerEnquiry, Integer>
@@ -32,6 +35,13 @@ public interface CustomerEnquiryRepository extends JpaRepository<CustomerEnquiry
 
 	@Query(value="from CustomerEnquiry where pancardNumber=:pancardNumber")
 	public Optional<CustomerEnquiry> findByPancardNo(String pancardNumber);
+	
+	
+		@Query(value = "from CustomerEnquiry where address=:address")
+		@Transactional
+		@Modifying
+		public 	List<CustomerEnquiry> getCustomerEnquiryByAdd(String address);
+
 
 
 }

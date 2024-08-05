@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.CustomeException.AddressNotFoundException;
 import com.crm.CustomeException.CibilStatusNotFoundException;
 import com.crm.CustomeException.EmailIdNotFoundException;
 import com.crm.CustomeException.EnquiryNotFoundException;
@@ -153,6 +154,15 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 		{
 		    throw new PhonenoNotExistException("Invalid Pancard Number..");
 		}  				
+	}
+
+	public List< CustomerEnquiry> getCustomerEnquiryByAddress(String address) {
+    List<CustomerEnquiry> clist=      repository.getCustomerEnquiryByAdd(address);
+          if(clist.isEmpty()) {
+        	  throw new AddressNotFoundException("CustomerEnquiry is Not Found For this Address");
+          }
+          return clist;
+          
 	}
 
 	
