@@ -18,6 +18,15 @@ public interface CustomerEnquiryRepository extends JpaRepository<CustomerEnquiry
 	
 	List<CustomerEnquiry> findByAge(int age);
 	
+	@Query(name = "findByEmailId", value = "from CustomerEnquiry where emailId=?1")
+	public Optional<CustomerEnquiry> findByEmailId(String emailId);
+
+	@Query(name = "findAllByCibilStatus", value = "from CustomerEnquiry where cibilStatus=?1")
+	public List<CustomerEnquiry> findAllByCibilStatus(String cibilStatus);
+
+	@Query(name = "findAllByLoanStatus", value = "from CustomerEnquiry where loanStatus=?1")
+	public List<CustomerEnquiry> findAllByLoanStatus(String loanStatus);
+	
 
 
 

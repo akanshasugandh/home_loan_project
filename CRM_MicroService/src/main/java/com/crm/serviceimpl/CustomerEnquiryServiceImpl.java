@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.CustomeException.CibilStatusNotFoundException;
+import com.crm.CustomeException.EmailIdNotFoundException;
 import com.crm.CustomeException.EnquiryNotFoundException;
 import com.crm.CustomeException.InvalidAgeException;
 import com.crm.CustomeException.LastNameNotFoundExcep;
+import com.crm.CustomeException.LoanStatusNotFoundException;
 import com.crm.CustomeException.NameNotFoundException;
 import com.crm.model.CustomerEnquiry;
 import com.crm.repository.CustomerEnquiryRepository;
@@ -73,6 +76,52 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	public void deleteCustomerEnquiryById(int customerEnquiryId)
 	{
 		   repository.deleteById(customerEnquiryId);		
+	}
+	
+	@Override
+	public CustomerEnquiry getByCusEmailId(String emailId) 
+	{
+		Optional<CustomerEnquiry> ceOp=repository.findByEmailId(emailId);
+		
+		if(ceOp.isPresent())
+		{
+			CustomerEnquiry ce=ceOp.get();
+			return ce;
+		}
+		else
+		{
+			throw new EmailIdNotFoundException("Customer with this emailId not found");
+		}
+	}
+
+	@Override
+	public List<CustomerEnquiry> getAllByCusCibilStatus(String cibilStatus) 
+	{
+		List<CustomerEnquiry> cusList=repository.findAllByCibilStatus(cibilStatus);
+		
+		if(cibilStatus.equalsIgnoreCase("pending")||cibilStatus.equalsIgnoreCase("accepted"))
+		{
+			return cusList;
+		}
+		else
+		{
+			throw new CibilStatusNotFoundException("Invalid CIBIL status");
+		}
+	}
+
+	@Override
+	public List<CustomerEnquiry> getAllByCusLoanStatus(String loanStatus) 
+	{
+		List<CustomerEnquiry> cusList=repository.findAllByLoanStatus(loanStatus);
+		
+		if(loanStatus.equalsIgnoreCase("pending")||loanStatus.equalsIgnoreCase("approved"))
+		{
+			return cusList;
+		}
+		else
+		{
+			throw new LoanStatusNotFoundException("Invalid Loan status");
+		}
 	}
 
 	
