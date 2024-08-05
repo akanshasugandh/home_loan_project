@@ -13,7 +13,11 @@ public interface CustomerEnquiryRepository extends JpaRepository<CustomerEnquiry
 {
 
 	Optional<CustomerEnquiry> findByFirstName(String firstName);
+	
+	Optional<CustomerEnquiry> findByLastName(String lastName);
+	
 	List<CustomerEnquiry> findByAge(int age);
+	
 
 
 

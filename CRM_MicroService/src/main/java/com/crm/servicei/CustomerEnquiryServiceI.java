@@ -18,6 +18,8 @@ public interface CustomerEnquiryServiceI {
 	
 	public void deleteCustomerEnquiryById(int customerEnquiryId);
 
+	public CustomerEnquiry findByLastName(String lastName);
+
 
 
 
