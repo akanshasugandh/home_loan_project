@@ -56,7 +56,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	{
 		if(age<=18|| age>= 65)
 		{
-			throw new InvalidAgeException("Invalid Age....");
+			throw new InvalidAgeException("Age is not Valid....");
 		}
 		
 		return repository.findByAge(age);
