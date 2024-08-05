@@ -19,8 +19,29 @@ public class GlobalExceptionHandler {
   	  error.setStatusMessage(HttpStatus.ACCEPTED.NOT_FOUND);
   	  error.setTimeStamp(new Date());
   	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
-  	  
-  	  
-    }
+  	  }
+    
+    @ExceptionHandler
+    public ResponseEntity<ApiError>NamNtFoundException(NameNotFoundException ne,HttpServletRequest request){
+  	  ApiError error=new ApiError();
+  	  error.setMessage(ne.getMessage());
+  	  error.setPath(request.getRequestURI());
+  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
+  	  error.setStatusMessage(HttpStatus.ACCEPTED.NOT_FOUND);
+  	  error.setTimeStamp(new Date());
+  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
+  	  }
+    
+    @ExceptionHandler
+    public ResponseEntity<ApiError>AgeNtFoundException(InvalidAgeException ae,HttpServletRequest request){
+  	  ApiError error=new ApiError();
+  	  error.setMessage(ae.getMessage());
+  	  error.setPath(request.getRequestURI());
+  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
+  	  error.setStatusMessage(HttpStatus.ACCEPTED.NOT_FOUND);
+  	  error.setTimeStamp(new Date());
+  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
+  	  }
+
 
 }

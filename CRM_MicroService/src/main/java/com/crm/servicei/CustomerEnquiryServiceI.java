@@ -12,10 +12,13 @@ public interface CustomerEnquiryServiceI {
 
 	public  CustomerEnquiry getByCuId(int customerEnquiryId);
 
+	public CustomerEnquiry findByName(String firstName);
 
+	public List<CustomerEnquiry> findByAge(int age);
+	
 	public void deleteCustomerEnquiryById(int customerEnquiryId);
 
-	
+
 
 
 }
