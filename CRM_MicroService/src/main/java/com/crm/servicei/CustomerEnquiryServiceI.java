@@ -32,6 +32,9 @@ public interface CustomerEnquiryServiceI {
 
 	public List<CustomerEnquiry> getCustomerEnquiryByAddress(String address);
 
+	public CustomerEnquiry getCusEnqByAadharCardNumber(String aadharCardNumber);
+
+
 
 
 

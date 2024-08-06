@@ -42,6 +42,11 @@ public interface CustomerEnquiryRepository extends JpaRepository<CustomerEnquiry
 		@Modifying
 		public 	List<CustomerEnquiry> getCustomerEnquiryByAdd(String address);
 
+		@Query(value = "from CustomerEnquiry where aadharCardNumber=:aadharCardNumber")
+
+		 Optional<CustomerEnquiry> getEnquiryByAadhar(String aadharCardNumber);
+
+			
 
 
 }

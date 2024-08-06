@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.CustomeException.AddharCardNumberNotFoundException;
 import com.crm.CustomeException.AddressNotFoundException;
 import com.crm.CustomeException.CibilStatusNotFoundException;
 import com.crm.CustomeException.EmailIdNotFoundException;
@@ -164,6 +165,20 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
           return clist;
           
 	}
+	@Override
+	public CustomerEnquiry getCusEnqByAadharCardNumber(String aadharCardNumber) {
+		  Optional<CustomerEnquiry>ce=  repository.getEnquiryByAadhar(aadharCardNumber);
+	if(ce.isPresent()) {
+           return ce.get();
+	}
+	
+	else {		
+	throw new AddharCardNumberNotFoundException("Enquiry is Not Found for This AddharCardNumber");
+	}
+	
+	}
+	
+
 
 	
 	

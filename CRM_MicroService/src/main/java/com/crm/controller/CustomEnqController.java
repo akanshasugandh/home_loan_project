@@ -151,6 +151,12 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		
 		return new ResponseEntity<List<CustomerEnquiry>>(cusList, HttpStatus.OK);
 	}
+	   @GetMapping("/CustomerEnquiryAadhar/{aadharCardNumber}")
+	   public CustomerEnquiry getCustomerEnquiryByAadharCardNumber(@PathVariable ("aadharCardNumber")String aadharCardNumber) {
+		      CustomerEnquiry c=        servicei.getCusEnqByAadharCardNumber(aadharCardNumber);
+		              return  c;
+	   }
+		
 	
 	
 	@DeleteMapping("/deleteCustomerEnquiryById/{customerEnquiryId}")
