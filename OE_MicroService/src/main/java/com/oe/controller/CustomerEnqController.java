@@ -3,6 +3,7 @@ package com.oe.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +22,17 @@ public class CustomerEnqController
 	
 	@Autowired private EmailServiceI emailservicei;
 	
-	@GetMapping("/generateCibilSc/{customerEnquiryId}")
-	public CustomerEnquiry calculateCibilScore(@PathVariable int customerEnquiryId)
+//	@GetMapping("/generateCibilSc/{customerEnquiryId}")
+//	public CustomerEnquiry calculateCibilScore(@PathVariable int customerEnquiryId)
+//	{
+//		return servicei.calculateCibilScore(customerEnquiryId);
+//	}
+	
+	@PostMapping("/calulateCibilSc/{customerEnquiryId}")
+	public ResponseEntity<CustomerEnquiry >calculateCibilScore(@PathVariable int customerEnquiryId)
 	{
-		return servicei.calculateCibilScore(customerEnquiryId);
+			CustomerEnquiry cue=servicei.calculateCibilScore(customerEnquiryId);
+			return ResponseEntity.ok(cue);
 	}
 
 }
