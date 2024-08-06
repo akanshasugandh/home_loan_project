@@ -3,6 +3,8 @@ import com.crm.CustomeException.LastNameNotFoundExcep;
 import com.crm.CustomeException.NameNotFoundException;
 import com.crm.model.CustomerEnquiry;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -38,14 +40,16 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	@PostMapping("/saveEnquiryDetails")
 	public ResponseEntity<String> saveEnquiryDetails(@RequestBody CustomerEnquiry ce)
 	{
+		ce.setCustomerEnquiryDate(new Date());
+		ce.setCustomerEnquiryTime(new Time(System.currentTimeMillis()));
 		
-		String str="Enquiry details saved successfully!";
 
 		servicei.saveEnquiry(ce);
 		EmailDetails ed=new EmailDetails();
 		ed.setToEmail(ce.getEmailId());
 		emailservicei.sendEmail(ed);
 		log.info("info()....save Enquiry Details....");
+		String str="Enquiry details saved successfully!";
 		return new ResponseEntity<String>(str, HttpStatus.OK);
 	}
 	
