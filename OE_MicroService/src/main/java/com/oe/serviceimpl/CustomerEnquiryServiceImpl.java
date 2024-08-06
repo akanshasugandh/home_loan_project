@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oe.customexceptions.CibilScoreAlreadyGeneratedExcep;
+import com.oe.customexceptions.EnquiryNotFoundException;
 import com.oe.model.CustomerEnquiry;
 import com.oe.repository.CustomerEnquiryRepository;
 import com.oe.servicei.CustomerEnquiryServiceI;
@@ -26,18 +27,25 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI
 			CustomerEnquiry cue=cuop.get();
 			if(cue.getCibilScore()>0)
 			{
-				throw new CibilScoreAlreadyGeneratedExcep("CibilScore is Already Claculated For This ID");
+			
+				throw new CibilScoreAlreadyGeneratedExcep("CibilScore is Already calculated For This ID");
 			}
-			else {
+			else if(cue.getLoanStatus().equalsIgnoreCase("ftoe"))
+			{
 				Random r=new Random();
 				int cibilScore=r.nextInt(900-300)+300;
 				cue.setCibilScore(cibilScore);
 				cue.setCibilStatus(cibilScore>=650 ? "Good ": "Poor");
-			return repository.save(cue);
+				cue.setLoanStatus(cibilScore>=650 ? "Cibil_approved":"CIBIL_rejected");
+				return repository.save(cue);
+			}
+			else
+			{
+				 throw new EnquiryNotFoundException("This enquiry is not forwarded to OE");
 			}
 		}else 
 		{
-			throw new RuntimeException("Customer Not Found For This ID");
+			throw new EnquiryNotFoundException("Enquiry not found for this ID");
 		}
 		}
 		

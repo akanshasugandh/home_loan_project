@@ -22,12 +22,6 @@ public class CustomerEnqController
 	
 	@Autowired private EmailServiceI emailservicei;
 	
-//	@GetMapping("/generateCibilSc/{customerEnquiryId}")
-//	public CustomerEnquiry calculateCibilScore(@PathVariable int customerEnquiryId)
-//	{
-//		return servicei.calculateCibilScore(customerEnquiryId);
-//	}
-	
 	@PostMapping("/calulateCibilSc/{customerEnquiryId}")
 	public ResponseEntity<CustomerEnquiry >calculateCibilScore(@PathVariable int customerEnquiryId)
 	{

@@ -136,7 +136,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		log.error("error().....Customer Email-Id Not Found....");
 		try
 		{
-				String s="^[a-zA-Z0-9. _%+-]+@[a-zA-Z0-9.";
+				String s="^[a-zA-Z0-9. _%+-]+@[a-zA-Z0-9.]";
 		}
 		catch(EmailIdNotFoundException ag)
 		{
@@ -192,6 +192,16 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		List<CustomerEnquiry> cusList=servicei.getAllByCusCibilStatus(cibilStatus);
 		log.info("info().....get Cibil Status()....");
 		return new ResponseEntity<List<CustomerEnquiry>>(cusList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/fwdToOE/{customerEnquiryId}")
+	public ResponseEntity<String> ForwardToOE(@PathVariable int customerEnquiryId)
+	{
+		CustomerEnquiry byCuId = servicei.getByCuId(customerEnquiryId);
+		byCuId.setLoanStatus("ftoe");
+		servicei.saveEnquiry(byCuId);
+		log.info("info().....Forwarded to OE");
+		return new ResponseEntity<String>("Fwd_to_oe", HttpStatus.OK);
 	}
 	
 	@GetMapping("/getAllByLoanStatus/{loanStatus}")

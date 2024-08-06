@@ -21,124 +21,69 @@ public class GlobalExceptionHandler {
   	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
   	  }
     
+
     @ExceptionHandler
-    public ResponseEntity<ApiError> NamNtFoundException(NameNotFoundException ne,HttpServletRequest request){
-  	  ApiError error=new ApiError();
-  	  error.setMessage(ne.getMessage());
-  	  error.setPath(request.getRequestURI());
-  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
-  	  error.setStatusMessage(HttpStatus.NOT_FOUND);
-  	  error.setTimeStamp(new Date());
-  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
-  	  }
-    @ExceptionHandler
-    public ResponseEntity<ApiError> LastNamNtFoundException(LastNameNotFoundExcep lne,HttpServletRequest request){
-  	  ApiError error=new ApiError();
-  	  error.setMessage(lne.getMessage());
-  	  error.setPath(request.getRequestURI());
-  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
-  	  error.setStatusMessage(HttpStatus.NOT_FOUND);
-  	  error.setTimeStamp(new Date());
-  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
-  	  }
-    
-    @ExceptionHandler
-    public ResponseEntity<ApiError> AgeNtFoundException(InvalidAgeException ae,HttpServletRequest request){
-  	  ApiError error=new ApiError();
-  	  error.setMessage(ae.getMessage());
-  	  error.setPath(request.getRequestURI());
-  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
-  	  error.setStatusMessage(HttpStatus.NOT_FOUND);
-  	  error.setTimeStamp(new Date());
-  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
-  	  }
-    
-    @ExceptionHandler
-    public ResponseEntity<EmailApiError> emailIdNotFoundExceptionHandler(EmailIdNotFoundException e, HttpServletRequest request)
+    public ResponseEntity<ApiError> cibilStatusNotFoundExceptionHandler(CibilStatusNotFoundException ci, HttpServletRequest request)
     {
-    	EmailApiError error=new EmailApiError();
-		error.setMessage(e.getMessage());
-		error.setPath(request.getRequestURI());
-		error.setStatusCode(HttpStatus.NOT_FOUND.value());
-		error.setStatusMessage(HttpStatus.NOT_FOUND);
-		error.setTimeStamp(new Date());
-		return new ResponseEntity<EmailApiError>(error, HttpStatus.NOT_FOUND);
-    }
-    
-    @ExceptionHandler
-    public ResponseEntity<CibilApiError> cibilStatusNotFoundExceptionHandler(CibilStatusNotFoundException ci, HttpServletRequest request)
-    {
-		CibilApiError error=new CibilApiError();
+    	ApiError error=new ApiError();
 		error.setMessage(ci.getMessage());
 		error.setPath(request.getRequestURI());
 		error.setStatusCode(HttpStatus.NOT_FOUND.value());
 		error.setStatusMessage(HttpStatus.NOT_FOUND);
 		error.setTimeStamp(new Date());
-		return new ResponseEntity<CibilApiError>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     }
     
     @ExceptionHandler
-    public ResponseEntity<LoanStatusApiError> loanStatusNotFoundExceptionHandler(LoanStatusNotFoundException ls, HttpServletRequest request)
+    public ResponseEntity<ApiError> loanStatusNotFoundExceptionHandler(LoanStatusNotFoundException ls, HttpServletRequest request)
     {
-    	LoanStatusApiError error=new LoanStatusApiError();
+    	ApiError error=new ApiError();
 		error.setMessage(ls.getMessage());
 		error.setPath(request.getRequestURI());
 		error.setStatusCode(HttpStatus.NOT_FOUND.value());
 		error.setStatusMessage(HttpStatus.NOT_FOUND);
 		error.setTimeStamp(new Date());
-		return new ResponseEntity<LoanStatusApiError>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     	
     }
     
     @ExceptionHandler
-    public ResponseEntity<CibilApiError> PhonenoNotExistExceptionExceptionHandler(PhonenoNotExistException p, HttpServletRequest request)
+    public ResponseEntity<ApiError> PhonenoNotExistExceptionExceptionHandler(PhonenoNotExistException p, HttpServletRequest request)
     {
-		CibilApiError error=new CibilApiError();
+    	ApiError error=new ApiError();
 		error.setMessage(p.getMessage());
 		error.setPath(request.getRequestURI());
 		error.setStatusCode(HttpStatus.NOT_FOUND.value());
 		error.setStatusMessage(HttpStatus.NOT_FOUND);
 		error.setTimeStamp(new Date());
-		return new ResponseEntity<CibilApiError>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     }
     
     @ExceptionHandler
-    public ResponseEntity<LoanStatusApiError> PancardNotExistFoundExceptionHandler(PancardNotExistException pc, HttpServletRequest request)
+    public ResponseEntity<ApiError> PancardNotExistFoundExceptionHandler(PancardNotExistException pc, HttpServletRequest request)
     {
-    	LoanStatusApiError error=new LoanStatusApiError();
+    	ApiError error=new ApiError();
 		error.setMessage(pc.getMessage());
 		error.setPath(request.getRequestURI());
 		error.setStatusCode(HttpStatus.NOT_FOUND.value());
 		error.setStatusMessage(HttpStatus.NOT_FOUND);
 		error.setTimeStamp(new Date());
-		return new ResponseEntity<LoanStatusApiError>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     	
     }
 
     @ExceptionHandler
-    public ResponseEntity<LoanStatusApiError> AddharCardNumberNotFoundExceptionExceptionHandler(AddharCardNumberNotFoundException ac, HttpServletRequest request)
+    public ResponseEntity<ApiError> AddharCardNumberNotFoundExceptionExceptionHandler(AddharCardNumberNotFoundException ac, HttpServletRequest request)
     {
-    	LoanStatusApiError error=new LoanStatusApiError();
+    	ApiError error=new ApiError();
 		error.setMessage(ac.getMessage());
 		error.setPath(request.getRequestURI());
 		error.setStatusCode(HttpStatus.NOT_FOUND.value());
 		error.setStatusMessage(HttpStatus.NOT_FOUND);
 		error.setTimeStamp(new Date());
-		return new ResponseEntity<LoanStatusApiError>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     	
     }
     
-    @ExceptionHandler
-    public ResponseEntity<LoanStatusApiError> AddressNotFoundExceptionExceptionHandler(AddressNotFoundException ad, HttpServletRequest request)
-    {
-    	LoanStatusApiError error=new LoanStatusApiError();
-		error.setMessage(ad.getMessage());
-		error.setPath(request.getRequestURI());
-		error.setStatusCode(HttpStatus.NOT_FOUND.value());
-		error.setStatusMessage(HttpStatus.NOT_FOUND);
-		error.setTimeStamp(new Date());
-		return new ResponseEntity<LoanStatusApiError>(error, HttpStatus.NOT_FOUND);
-    	
-    }
-
+  
 }
