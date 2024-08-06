@@ -7,14 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crm.CustomeException.AddharCardNumberNotFoundException;
-import com.crm.CustomeException.AddressNotFoundException;
 import com.crm.CustomeException.CibilStatusNotFoundException;
-import com.crm.CustomeException.EmailIdNotFoundException;
 import com.crm.CustomeException.EnquiryNotFoundException;
-import com.crm.CustomeException.InvalidAgeException;
-import com.crm.CustomeException.LastNameNotFoundExcep;
 import com.crm.CustomeException.LoanStatusNotFoundException;
-import com.crm.CustomeException.NameNotFoundException;
 import com.crm.CustomeException.PancardNotExistException;
 import com.crm.CustomeException.PhonenoNotExistException;
 import com.crm.model.CustomerEnquiry;
@@ -56,12 +51,12 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	public CustomerEnquiry findByName(String firstName) 
 	{
 		
-	return repository.findByFirstName(firstName).orElseThrow(()->new NameNotFoundException("Name Not Found:"
+	return repository.findByFirstName(firstName).orElseThrow(()->new EnquiryNotFoundException("Name Not Found:"
 				+firstName ));
 	}
 	@Override
 	public CustomerEnquiry findByLastName(String lastName) {
-		return repository.findByLastName(lastName).orElseThrow(()->new LastNameNotFoundExcep("Last Name Not Found:"
+		return repository.findByLastName(lastName).orElseThrow(()->new EnquiryNotFoundException("Last Name Not Found:"
 				+lastName ));
 	}
 
@@ -70,7 +65,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	{
 		if(age<=18|| age>= 65)
 		{
-			throw new InvalidAgeException("Age is not Valid....");
+			throw new EnquiryNotFoundException("Age is not Valid....");
 		}
 		
 		return repository.findByAge(age);
@@ -94,7 +89,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 		}
 		else
 		{
-			throw new EmailIdNotFoundException("Customer with this emailId not found");
+			throw new EnquiryNotFoundException("Customer with this emailId not found");
 		}
 	}
 
@@ -103,7 +98,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	{
 		List<CustomerEnquiry> cusList=repository.findAllByCibilStatus(cibilStatus);
 		
-		if(cibilStatus.equalsIgnoreCase("pending")||cibilStatus.equalsIgnoreCase("accepted"))
+		if(cibilStatus.equalsIgnoreCase("CIBIL_pending")||cibilStatus.equalsIgnoreCase("good")||cibilStatus.equalsIgnoreCase("poor"))
 		{
 			return cusList;
 		}
@@ -118,7 +113,7 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 	{
 		List<CustomerEnquiry> cusList=repository.findAllByLoanStatus(loanStatus);
 		
-		if(loanStatus.equalsIgnoreCase("pending")||loanStatus.equalsIgnoreCase("approved"))
+		if(loanStatus.equalsIgnoreCase("Loan_pending")||loanStatus.equalsIgnoreCase("fwdToOE")||loanStatus.equalsIgnoreCase("CIBIL_approved")||loanStatus.equalsIgnoreCase("CIBIL_rejected"))
 		{
 			return cusList;
 		}
@@ -153,14 +148,14 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI{
 		}
 		else
 		{
-		    throw new PhonenoNotExistException("Invalid Pancard Number..");
+		    throw new PancardNotExistException("Invalid Pancard Number..");
 		}  				
 	}
 
 	public List< CustomerEnquiry> getCustomerEnquiryByAddress(String address) {
     List<CustomerEnquiry> clist=      repository.getCustomerEnquiryByAdd(address);
           if(clist.isEmpty()) {
-        	  throw new AddressNotFoundException("CustomerEnquiry is Not Found For this Address");
+        	  throw new EnquiryNotFoundException("CustomerEnquiry is Not Found For this Address");
           }
           return clist;
           

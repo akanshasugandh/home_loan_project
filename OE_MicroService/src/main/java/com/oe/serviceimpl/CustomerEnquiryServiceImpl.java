@@ -30,13 +30,13 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI
 			
 				throw new CibilScoreAlreadyGeneratedExcep("CibilScore is Already calculated For This ID");
 			}
-			else if(cue.getLoanStatus().equalsIgnoreCase("ftoe"))
+			else if(cue.getLoanStatus().equalsIgnoreCase("fwdToOE"))
 			{
 				Random r=new Random();
 				int cibilScore=r.nextInt(900-300)+300;
 				cue.setCibilScore(cibilScore);
 				cue.setCibilStatus(cibilScore>=650 ? "Good ": "Poor");
-				cue.setLoanStatus(cibilScore>=650 ? "Cibil_approved":"CIBIL_rejected");
+				cue.setLoanStatus(cibilScore>=650 ? "CIBIL_approved":"CIBIL_rejected");
 				return repository.save(cue);
 			}
 			else
