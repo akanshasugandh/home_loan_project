@@ -1,9 +1,6 @@
 package com.crm.controller;
 import com.crm.CustomeException.AddharCardNumberNotFoundException;
-import com.crm.CustomeException.EmailIdNotFoundException;
-import com.crm.CustomeException.InvalidAgeException;
-import com.crm.CustomeException.LastNameNotFoundExcep;
-import com.crm.CustomeException.NameNotFoundException;
+import com.crm.CustomeException.EnquiryNotFoundException;
 import com.crm.CustomeException.PancardNotExistException;
 import com.crm.CustomeException.PhonenoNotExistException;
 import com.crm.model.CustomerEnquiry;
@@ -30,15 +27,12 @@ import com.crm.servicei.CustomerEnquiryServiceI;
 import com.crm.model.EmailDetails;
 import com.crm.servicei.EmailServiceI;
 
-
 @RestController
 public class CustomEnqController {
 
 private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
-	
 
 	@Autowired private CustomerEnquiryServiceI servicei;
-	
 	@Autowired private EmailServiceI emailservicei;
 	
 	
@@ -59,11 +53,8 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	@GetMapping("/getAllEnquiry")
 	public List<CustomerEnquiry> getCustomerEnquiry()
 	{
-
 		log.info("info()...getAllEnquiry().........");
 		List<CustomerEnquiry> al=servicei.getCustomerEnquiry(); 
-
-		
 		return al;
 	}
 	@GetMapping("/getById/{customerEnquiryId}")
@@ -74,7 +65,6 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		return ce;
 	}
 
-	
 	@GetMapping("/getByCustomName/{firstName}")
 	public CustomerEnquiry findByName(@PathVariable String firstName)
 	{
@@ -85,7 +75,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		{
 				String s="^([A-Z][A-Z0-9]([A-Z0-9]+)$";
 		}
-		catch(NameNotFoundException nm)
+		catch(EnquiryNotFoundException nm)
 		{
 			log.error(nm.getMessage());
 		}
@@ -103,7 +93,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		{
 				String s="^([A-Z][A-Z0-9]([A-Z0-9]+)$";
 		}
-		catch(LastNameNotFoundExcep lnm)
+		catch(EnquiryNotFoundException lnm)
 		{
 			log.error(lnm.getMessage());
 		}
@@ -121,7 +111,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		{
 				String s="^(65|[1-9][7-9][0-9]?)$";
 		}
-		catch(InvalidAgeException ag)
+		catch(EnquiryNotFoundException ag)
 		{
 			log.error(ag.getMessage());
 		}
@@ -138,9 +128,9 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		{
 				String s="^[a-zA-Z0-9. _%+-]+@[a-zA-Z0-9.]";
 		}
-		catch(EmailIdNotFoundException ag)
+		catch(EnquiryNotFoundException e)
 		{
-			log.error(ag.getMessage());
+			log.error(e.getMessage());
 		}
 		CustomerEnquiry ce=servicei.getByCusEmailId(emailId);
 		return ce;
@@ -155,9 +145,9 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		{
 				String s="[0-9]+";
 		}
-		catch(PhonenoNotExistException ag)
+		catch(PhonenoNotExistException e)
 		{
-			log.error(ag.getMessage());
+			log.error(e.getMessage());
 		}
 		CustomerEnquiry ce = servicei.getCustByContact(contactNumber);
 		return ce;
@@ -172,9 +162,9 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		{
 				String s="[A-Z]{5}[0-9]{4}[A-Z]{1}";
 		}
-		catch(PancardNotExistException ag)
+		catch(PancardNotExistException e)
 		{
-			log.error(ag.getMessage());
+			log.error(e.getMessage());
 		}
 		CustomerEnquiry ce = servicei.getCustByPancard(pancardNumber);
 		return ce;
@@ -198,7 +188,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	public ResponseEntity<String> ForwardToOE(@PathVariable int customerEnquiryId)
 	{
 		CustomerEnquiry byCuId = servicei.getByCuId(customerEnquiryId);
-		byCuId.setLoanStatus("ftoe");
+		byCuId.setLoanStatus("fwdToOE");
 		servicei.saveEnquiry(byCuId);
 		log.info("info().....Forwarded to OE");
 		return new ResponseEntity<String>("Fwd_to_oe", HttpStatus.OK);
@@ -227,12 +217,9 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		}
 		 
 		CustomerEnquiry c=servicei.getCusEnqByAadharCardNumber(aadharCardNumber);
-		      
-		              return  c;
+		return  c;
 	   }
 		
-	
-	
 	@DeleteMapping("/deleteCustomerEnquiryById/{customerEnquiryId}")
 	public String deleteByCustomerEnquiryByID(@PathVariable("customerEnquiryId")int customerEnquiryId) 
 	{
@@ -241,7 +228,6 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		return "Customer Enquiry Deleted Successfully....!!1";
 	}
 
-	
 	@PutMapping("/updateDetails/{customerEnquiryId}")
 	public ResponseEntity<String> updateAllDetails(@PathVariable int customerEnquiryId,@RequestBody CustomerEnquiry ce)
 	{
@@ -263,5 +249,4 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		return new ResponseEntity<String> ("Customer Details Updated.....",HttpStatus.OK);
 	}
 	
-
 }
