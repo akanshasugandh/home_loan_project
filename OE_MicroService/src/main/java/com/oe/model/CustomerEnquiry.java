@@ -1,7 +1,12 @@
 package com.oe.model;
 
+import java.sql.Time;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +31,11 @@ public class CustomerEnquiry {
 	private int cibilScore;
 	private String cibilStatus;
 	private String loanStatus;
+	
+	@Temporal(TemporalType.DATE)
+	private Date customerEnquiryDate;
+	
+	@Temporal(TemporalType.TIME)
+	private Time customerEnquiryTime;
 
 }
