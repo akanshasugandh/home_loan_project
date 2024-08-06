@@ -1,5 +1,6 @@
 package com.crm.controller;
-
+import com.crm.CustomeException.LastNameNotFoundExcep;
+import com.crm.CustomeException.NameNotFoundException;
 import com.crm.model.CustomerEnquiry;
 
 import java.util.List;
@@ -44,12 +45,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		EmailDetails ed=new EmailDetails();
 		ed.setToEmail(ce.getEmailId());
 		emailservicei.sendEmail(ed);
-		
 		log.info("info()....save Enquiry Details....");
-		log.warn("warn().....save Enquiry Details....");
-		log.error("error().....save Enquiry Details....");
-		log.debug("debug().....save Enquiry Details....");
-		log.trace("trace().....save Enquiry Details....");
 		return new ResponseEntity<String>(str, HttpStatus.OK);
 	}
 	
@@ -58,10 +54,6 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	{
 
 		log.info("info()...getAllEnquiry().........");
-		log.warn("warn()..getAllEnquiry().........");
-		log.error("error()...getAllEnquiry().....");
-		log.debug("debug()...getAllEnquiry().....");
-		log.trace("trace()...getAllEnquiry().....");
 		List<CustomerEnquiry> al=servicei.getCustomerEnquiry(); 
 
 		
@@ -72,10 +64,6 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	{
 		CustomerEnquiry ce=servicei.getByCuId(customerEnquiryId);
 		log.info("info().....get All ID Enquiry()....");
-		log.warn("warn().....get All ID Enquiry()....");
-		log.error("error().....get All ID Enquiry()....");
-		log.debug("debug().....get All ID Enquiry()....");
-		log.trace("trace().....get All ID Enquiry()....");
 		return ce;
 	}
 
@@ -85,11 +73,15 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	{
 		System.out.println("This is GetByCustomerName Method...");
 		log.info("info().....get All Name Enquiry()....");
-		log.warn("warn().....get All Name Enquiry()....");
-		log.error("error().....get All Name Enquiry()...");
-		log.debug("debug().....get All Name Enquiry()....");
-		log.trace("trace().....get All Name Enquiry()...");
-		
+		log.error("error().....Name Not Found....");
+		try
+		{
+				String s="^([A-Z][A-Z0-9]([A-Z0-9]+)$";
+		}
+		catch(NameNotFoundException nm)
+		{
+			log.error(nm.getMessage());
+		}
 		CustomerEnquiry  ce2=servicei.findByName(firstName);
 		return ce2;
 	}
@@ -99,11 +91,15 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	{
 		System.out.println("This is GetByCustomerLastName Method...");
 		log.info("info().....get Enquiry By Last Name()....");
-		log.warn("warn()......get Enquiry By Last Name()....");
-		log.error("error()......get Enquiry By Last Name()...");
-		log.debug("debug()......get Enquiry By Last Name()....");
-		log.trace("trace()......get Enquiry By Last Name().....");
-		
+		log.error("error().....Last Name Not Found....");
+		try
+		{
+				String s="^([A-Z][A-Z0-9]([A-Z0-9]+)$";
+		}
+		catch(LastNameNotFoundExcep lnm)
+		{
+			log.error(lnm.getMessage());
+		}
 		CustomerEnquiry  ce2=servicei.findByLastName(lastName);
 		return ce2;
 	}
@@ -112,6 +108,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	public List<CustomerEnquiry> findByAge(@PathVariable int age)
 	{
 		List<CustomerEnquiry>  ce3=servicei.findByAge(age);
+		log.info("info().....get Customer Age()....");
 		return ce3;
 	}
 	
@@ -119,6 +116,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	public CustomerEnquiry getByEmailId(@PathVariable String emailId)
 	{
 		CustomerEnquiry ce=servicei.getByCusEmailId(emailId);
+		log.info("info().....get Customer Email-Id()....");
 		return ce;
 	}
 	
@@ -126,6 +124,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	public CustomerEnquiry getCustByContact(@PathVariable long contactNumber)
 	{
 		CustomerEnquiry ce = servicei.getCustByContact(contactNumber);
+		log.info("info().....get Customer Contact()....");
 		return ce;
 	}
 	
@@ -133,14 +132,21 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	public CustomerEnquiry getCustByPancard(@PathVariable String pancardNumber)
 	{
 		CustomerEnquiry ce = servicei.getCustByPancard(pancardNumber);
+		log.info("info().....get Customer Pancard()....");
 		return ce;
 	}
-	
+	@GetMapping("/CustomerEnquiry/{address}")
+	public List<CustomerEnquiry> getCustomerEnquiryByAddress(@PathVariable ("address") String address)
+	{
+		List<CustomerEnquiry> clist=     servicei.getCustomerEnquiryByAddress(address);
+		log.info("info().....Customer Enquiry Address()....");
+		return clist;
+	}
 	@GetMapping("/getAllByCibilStatus/{cibilStatus}")
 	public ResponseEntity<List<CustomerEnquiry>> getAllByCibilStatus(@PathVariable String cibilStatus)
 	{
 		List<CustomerEnquiry> cusList=servicei.getAllByCusCibilStatus(cibilStatus);
-		
+		log.info("info().....get Cibil Status()....");
 		return new ResponseEntity<List<CustomerEnquiry>>(cusList, HttpStatus.OK);
 	}
 	
@@ -148,12 +154,15 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	public ResponseEntity<List<CustomerEnquiry>> getAllByLoanStatus(@PathVariable String loanStatus)
 	{
 		List<CustomerEnquiry> cusList=servicei.getAllByCusLoanStatus(loanStatus);
-		
+		log.info("info().....get Loan Status()....");
 		return new ResponseEntity<List<CustomerEnquiry>>(cusList, HttpStatus.OK);
 	}
-	   @GetMapping("/CustomerEnquiryAadhar/{aadharCardNumber}")
-	   public CustomerEnquiry getCustomerEnquiryByAadharCardNumber(@PathVariable ("aadharCardNumber")String aadharCardNumber) {
-		      CustomerEnquiry c=        servicei.getCusEnqByAadharCardNumber(aadharCardNumber);
+	
+	@GetMapping("/CustomerEnquiryAadhar/{aadharCardNumber}")
+	public CustomerEnquiry getCustomerEnquiryByAadharCardNumber(@PathVariable ("aadharCardNumber")String aadharCardNumber) 
+	{
+		      CustomerEnquiry c=servicei.getCusEnqByAadharCardNumber(aadharCardNumber);
+		      log.info("info().....get Customer Aadhar()....");
 		              return  c;
 	   }
 		
@@ -164,10 +173,6 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	{
         servicei.deleteCustomerEnquiryById(customerEnquiryId);
         log.info("info().....delete Customer Enquiry By Id()....");
-		log.warn("warn().....delete Customer Enquiry By Id()....");
-		log.error("error().....delete Customer Enquiry By Id()....");
-		log.debug("debug().....delete Customer Enquiry By Id....");
-		log.trace("trace().....delete Customer Enquiry By Id....");
 		return "Customer Enquiry Deleted Successfully....!!1";
 	}
 
@@ -190,16 +195,8 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	    cust.setLoanStatus(ce.getLoanStatus());
 	    servicei.saveEnquiry(cust);
 	    log.info("info().....update Details()....");
-		log.warn("warn().....update Details()....");
-		log.error("error().....update Details()....");
-		log.debug("debug().....update Details()....");
-		log.trace("trace().....update Details()....");
 		return new ResponseEntity<String> ("Customer Details Updated.....",HttpStatus.OK);
 	}
-	@GetMapping("/CustomerEnquiry/{address}")
-	public List<CustomerEnquiry> getCustomerEnquiryByAddress(@PathVariable ("address") String address){
-		  List<CustomerEnquiry> clist=     servicei.getCustomerEnquiryByAddress(address);
-	return clist;
-	}
+	
 
 }
