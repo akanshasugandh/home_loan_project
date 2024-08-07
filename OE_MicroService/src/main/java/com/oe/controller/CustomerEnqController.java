@@ -18,6 +18,7 @@ import com.oe.servicei.EmailServiceI;
 public class CustomerEnqController 
 {
 	private static Logger log= LoggerFactory.getLogger(CustomerEnqController.class);
+	
 	@Autowired private CustomerEnquiryServiceI servicei;
 	
 	@Autowired private EmailServiceI emailservicei;
@@ -26,6 +27,7 @@ public class CustomerEnqController
 	public ResponseEntity<CustomerEnquiry >calculateCibilScore(@PathVariable int customerEnquiryId)
 	{
 			CustomerEnquiry cue=servicei.calculateCibilScore(customerEnquiryId);
+			log.info("info()....Customer CIBIL Score is Calculated....");
 			return ResponseEntity.ok(cue);
 	}
 
