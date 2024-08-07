@@ -190,6 +190,9 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 		CustomerEnquiry byCuId = servicei.getByCuId(customerEnquiryId);
 		byCuId.setLoanStatus("fwdToOE");
 		servicei.saveEnquiry(byCuId);
+		EmailDetails ed=new EmailDetails();
+		ed.setToEmail(byCuId.getEmailId());
+		emailservicei.sendEmailToCustomer(ed);
 		log.info("info().....Forwarded to OE");
 		return new ResponseEntity<String>("Fwd_to_oe", HttpStatus.OK);
 	}
