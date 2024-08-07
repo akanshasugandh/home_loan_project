@@ -24,4 +24,15 @@ public class EmailServiceImpl implements EmailServiceI
 		sender.send(message);
 		
 	}
+
+	@Override
+	public void sendEmailToCustomer(EmailDetails ed) 
+	{
+		SimpleMailMessage message=new SimpleMailMessage();
+		message.setTo(ed.getToEmail());
+		message.setSubject("submitted successfully");
+		message.setText("Dear Sir/Madam, You're Home Loan Enquiry Forwarded To OE. "
+				+ "Please wait till the further updates are sent!");
+		sender.send(message);
+	}
 }

@@ -7,4 +7,6 @@ public interface EmailServiceI
 
 	public void sendEmail(EmailDetails ed);
 	
+	public void sendEmailToCustomer(EmailDetails ed);
+	
 }
