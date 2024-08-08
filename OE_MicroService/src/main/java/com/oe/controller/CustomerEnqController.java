@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oe.model.CustomerEnquiry;
+import com.oe.model.EmailDetails;
 import com.oe.servicei.CustomerEnquiryServiceI;
 import com.oe.servicei.EmailServiceI;
 
@@ -28,7 +29,12 @@ public class CustomerEnqController
 	{
 			CustomerEnquiry cue=servicei.calculateCibilScore(customerEnquiryId);
 			log.info("info()....Customer CIBIL Score is Calculated....");
+			EmailDetails ed=new EmailDetails();
+			ed.setToEmail(cue.getEmailId());
+			emailservicei.sendEmailToCustomer(ed);
+			emailservicei.sendEmail(ed);
 			return ResponseEntity.ok(cue);
+			
 	}
 
 }
