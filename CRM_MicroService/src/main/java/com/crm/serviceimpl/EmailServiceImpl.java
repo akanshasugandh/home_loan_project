@@ -35,4 +35,16 @@ public class EmailServiceImpl implements EmailServiceI
 				+ "Please wait till the further updates are sent!");
 		sender.send(message);
 	}
+	
+	@Override
+	public void sendEmail2(EmailDetails ed)
+	{
+		SimpleMailMessage message=new SimpleMailMessage();
+		message.setTo(ed.getToEmail());
+		message.setSubject("Registration done successfully");
+		message.setText("Registration done successfully! Please wait till the further updates are sent!");
+	
+		sender.send(message);
+		
+	}
 }
