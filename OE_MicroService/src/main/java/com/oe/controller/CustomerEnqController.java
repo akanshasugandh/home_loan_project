@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -159,6 +160,40 @@ public class CustomerEnqController
 		CustomerEnquiry ce= rsTemplate.getForObject(url, CustomerEnquiry.class);
 		return ce;
 	}
+	
+	@GetMapping("/getByCuId/{customerEnquiryId}")
+	public ResponseEntity<CustomerEnquiry> getByCuId(@PathVariable int customerEnquiryId)
+	{
+			CustomerEnquiry cue=servicei.getByCuId(customerEnquiryId);
+			return new ResponseEntity<CustomerEnquiry>(cue, HttpStatus.OK);
+	}
+	
+	@GetMapping("/docAccepted/{customerEnquiryId}")
+	public ResponseEntity<String> docAccepted(@PathVariable int customerEnquiryId)
+	{
+		CustomerEnquiry byCuId = servicei.getByCuId(customerEnquiryId);
+		byCuId.setLoanStatus("DocAccepted");
+		servicei.saveEnquiry(byCuId);
+		EmailDetails ed=new EmailDetails();
+		ed.setToEmail(byCuId.getEmailId());
+		emailservicei.sendEmailAcc(ed);
+		log.info("info().....Documents accepted!");
+		return new ResponseEntity<String>("DocAccepted", HttpStatus.OK);
+	}
+	
+	@GetMapping("/docRejected/{customerEnquiryId}")
+	public ResponseEntity<String> docRejected(@PathVariable int customerEnquiryId)
+	{
+		CustomerEnquiry byCuId = servicei.getByCuId(customerEnquiryId);
+		byCuId.setLoanStatus("DocRejected");
+		servicei.saveEnquiry(byCuId);
+		EmailDetails ed=new EmailDetails();
+		ed.setToEmail(byCuId.getEmailId());
+		emailservicei.sendEmailRej(ed);
+		log.info("info().....Documents rejected");
+		return new ResponseEntity<String>("DocRejected", HttpStatus.OK);
+	}
+
 	
 
 }

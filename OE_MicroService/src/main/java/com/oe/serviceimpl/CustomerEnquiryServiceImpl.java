@@ -67,8 +67,30 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI
 			throw new EnquiryNotFoundException("Enquiry not found for this ID");
 		}
 		}
+	
+	@Override
+	public CustomerEnquiry getByCuId(int customerEnquiryId)
+	{
+		Optional<CustomerEnquiry> cuop=repository.findById(customerEnquiryId);
 		
-
+		if(cuop.isPresent())
+		{
+			CustomerEnquiry cue=cuop.get();
+			return cue;
+		}
+		else
+		{
+			throw new EnquiryNotFoundException("No enquiry found for this Id");
+		}
+		
 	}
+
+	@Override
+	public void saveEnquiry(CustomerEnquiry ce)
+	{
+		repository.save(ce);
+	}
+		
+}
 
 

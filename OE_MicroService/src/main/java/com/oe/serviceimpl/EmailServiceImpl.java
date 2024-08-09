@@ -52,6 +52,26 @@ public class EmailServiceImpl implements EmailServiceI
 		}
 	}
 
+	@Override
+	public void sendEmailAcc(EmailDetails ed) {
+		SimpleMailMessage message=new SimpleMailMessage();
+		message.setTo(ed.getToEmail());
+		message.setSubject("Enquiry submitted successfully");
+		message.setText("Documents verification is successfull! Please wait till the further updates are sent!");
+	
+		sender.send(message);
+		
+	}
+	
+	@Override
+	public void sendEmailRej(EmailDetails ed) {
+		SimpleMailMessage message=new SimpleMailMessage();
+		message.setTo(ed.getToEmail());
+		message.setSubject("Enquiry submitted successfully");
+		message.setText("Documents verification failed! Sorry you're not eligible for getting loan");
+	
+		sender.send(message);
+	}
 }
 
 
