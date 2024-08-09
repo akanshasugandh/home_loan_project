@@ -12,6 +12,4 @@ public interface EmailServiceI
 	public void sendEmailAcc(EmailDetails ed);
 
 	public void sendEmailRej(EmailDetails ed);
-
-	
 }

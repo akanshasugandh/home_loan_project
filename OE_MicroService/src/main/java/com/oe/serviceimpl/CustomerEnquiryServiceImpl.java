@@ -86,14 +86,11 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryServiceI
 	}
 
 	@Override
-	public void saveEnquiry(CustomerEnquiry ce) {
+	public void saveEnquiry(CustomerEnquiry ce)
+	{
 		repository.save(ce);
-		
 	}
 		
-
-		
-
-	}
+}
 
 

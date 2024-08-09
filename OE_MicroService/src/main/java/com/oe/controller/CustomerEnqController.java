@@ -177,7 +177,7 @@ public class CustomerEnqController
 		EmailDetails ed=new EmailDetails();
 		ed.setToEmail(byCuId.getEmailId());
 		emailservicei.sendEmailAcc(ed);
-		log.info("info().....Documents accepted");
+		log.info("info().....Documents accepted!");
 		return new ResponseEntity<String>("DocAccepted", HttpStatus.OK);
 	}
 	

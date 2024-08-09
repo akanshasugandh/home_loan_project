@@ -9,5 +9,4 @@ public interface CustomerEnquiryServiceI {
 	public CustomerEnquiry getByCuId(int customerEnquiryId);
 
 	public void saveEnquiry(CustomerEnquiry ce);
-
 }

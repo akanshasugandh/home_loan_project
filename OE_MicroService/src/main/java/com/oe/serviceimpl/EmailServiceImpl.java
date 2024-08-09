@@ -71,9 +71,7 @@ public class EmailServiceImpl implements EmailServiceI
 		message.setText("Documents verification failed! Sorry you're not eligible for getting loan");
 	
 		sender.send(message);
-		
 	}
-
 }
 
 
