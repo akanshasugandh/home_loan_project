@@ -3,8 +3,10 @@ package com.cm.model;
 import java.sql.Time;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -37,4 +39,5 @@ public class CustomerEnquiry {
 	
 	@Temporal(TemporalType.TIME)
 	private Time customerEnquiryTime;
+	
 }

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cm.model.CustomerRegForm;
 
-
-
 @Repository
 public interface CustomerRegFormRepository extends JpaRepository<CustomerRegForm, Integer> 
 {
