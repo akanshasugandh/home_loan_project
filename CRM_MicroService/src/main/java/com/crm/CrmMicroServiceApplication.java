@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class CrmMicroServiceApplication {
 
 	public static void main(String[] args) {
-		System.out.println("CRM MicroService for Home Loan Project");
+		System.out.println("CRM MicroService for Home Loan");
 		SpringApplication.run(CrmMicroServiceApplication.class, args);
 	}
 

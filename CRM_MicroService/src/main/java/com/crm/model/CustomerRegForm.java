@@ -1,8 +1,6 @@
 package com.crm.model;
 
 import java.util.Date;
-
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -66,5 +64,8 @@ public class CustomerRegForm
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private SanctionLetter sanctionLetter;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private LoanDisbursement loanDisbursement;
 	
 }

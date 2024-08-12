@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
+
 public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<ApiError> EnquiryNotFoundExceptionhandler(EnquiryNotFoundException e,HttpServletRequest request){
