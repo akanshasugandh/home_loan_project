@@ -16,5 +16,4 @@ public class EmailDetails
 	private String toEmail;
 	private String subject;
 	private String txtMsg;
-
 }
