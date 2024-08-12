@@ -81,6 +81,13 @@ public class CustomerLoginServiceImpl implements CustomerLoginServiceI
 		reposLoginRepository.save(byCuId);
 		
 	}
+
+	@Override
+	public void updateCustomerdata(CustomerRegForm cu) 
+	{
+		regFormRepository.save(cu);
+		
+	}
 	
 
 	

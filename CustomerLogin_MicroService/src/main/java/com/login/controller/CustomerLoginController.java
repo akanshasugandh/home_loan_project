@@ -5,12 +5,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.model.CustomerRegForm;
+import com.login.model.Document;
 import com.login.model.EmailDetails;
 import com.login.servicei.CustomerLoginServiceI;
 import com.login.servicei.CustomerRegFormServiceI;
@@ -85,5 +91,79 @@ public class CustomerLoginController
 		emailservicei.sendEmailRej(ed);
 		log.info("info()...view Sanction Rejected().........");
 		return new ResponseEntity<String>("sanRejected", HttpStatus.OK);
+	}
+	@PutMapping(value="updateData/{CustomerRegId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<String>updateCustomerdata(@PathVariable int CustomerRegId ,@RequestPart("photo") MultipartFile photo, 
+			@RequestPart("aadharCard") MultipartFile aadharCard,
+			@RequestPart("pancard") MultipartFile pancard,
+			@RequestPart("incomeProof") MultipartFile incomeProof,
+			@RequestPart("propertyPapers") MultipartFile propertyPapers,
+			@RequestPart("bankStatement") MultipartFile bankStatement,
+			@RequestPart("nOC") MultipartFile nOC,
+			@RequestPart("data") String customerRegDetails)
+	
+		{
+			CustomerRegForm cu = regFormServiceI.getByCuRegId(CustomerRegId);
+			ObjectMapper om=new ObjectMapper();	
+			try 
+			{
+				CustomerRegForm crm=om.readValue(customerRegDetails, CustomerRegForm.class);
+				cu.setAadharCardNumber(crm.getAadharCardNumber());
+				cu.setAddress(crm.getAddress());
+				cu.setAge(crm.getAge());
+				cu.setCibilScore(crm.getCibilScore());
+				cu.setCibilStatus(crm.getCibilStatus());
+				cu.setContactNumber(crm.getContactNumber());
+				cu.setCustomerData(crm.getCustomerData());
+				cu.setDateOfBirth(crm.getDateOfBirth());
+				cu.setEmailId(crm.getEmailId());
+				cu.setFirstName(crm.getFirstName());
+				cu.setGender(crm.getGender());
+				cu.setLastName(crm.getLastName());
+				cu.setLoanStatus(crm.getLoanStatus());
+				cu.setMaritalStatus(crm.getMaritalStatus());
+				cu.setPancardNumber(crm.getPancardNumber());
+				cu.setPassword(crm.getPassword());
+				cu.getBankinfo().setBankAccountNo(crm.getBankinfo().getBankAccountNo());
+				cu.getBankinfo().setAccountType(crm.getBankinfo().getAccountType());
+				cu.getBankinfo().setBankCustomerId(crm.getBankinfo().getBankCustomerId());
+				cu.getBankinfo().setBranchAddress(crm.getBankinfo().getBranchAddress());
+				cu.getBankinfo().setIfscCode(crm.getBankinfo().getIfscCode());
+				cu.getBankinfo().setMicrCode(crm.getBankinfo().getMicrCode());
+				cu.getGuarantorDetails().setGuarantorId(crm.getGuarantorDetails().getGuarantorId());
+				cu.getGuarantorDetails().setRelationshipToCustomer(crm.getGuarantorDetails().getRelationshipToCustomer());
+				cu.getGuarantorDetails().setFirstName(crm.getGuarantorDetails().getFirstName());
+				cu.getGuarantorDetails().setLastName(crm.getGuarantorDetails().getLastName());
+				cu.getGuarantorDetails().setAadharCardNo(crm.getGuarantorDetails().getAadharCardNo());
+				cu.getGuarantorDetails().setAddress(crm.getGuarantorDetails().getAddress());
+				cu.getGuarantorDetails().setAge(crm.getGuarantorDetails().getAge());
+				cu.getGuarantorDetails().setContactNo(crm.getGuarantorDetails().getContactNo());
+				cu.getGuarantorDetails().setDateOfBirth(crm.getGuarantorDetails().getDateOfBirth());
+				cu.getGuarantorDetails().setEmailId(crm.getEmailId());
+				cu.getGuarantorDetails().setPanCardNo(crm.getGuarantorDetails().getPanCardNo());
+				cu.getPropertyInfo().setPropertLocation(crm.getPropertyInfo().getPropertLocation());
+				cu.getPropertyInfo().setPropertyCost(crm.getPropertyInfo().getPropertyCost());
+				cu.getPropertyInfo().setPropertyDetailsId(crm.getPropertyInfo().getPropertyDetailsId());
+				cu.getPropertyInfo().setPropertyType(crm.getPropertyInfo().getPropertyType());
+				Document doc=new Document();
+				doc.setPhoto(photo.getBytes());
+				doc.setAadharCard(aadharCard.getBytes());
+				doc.setPancard(pancard.getBytes());
+				doc.setIncomeProof(incomeProof.getBytes());
+				doc.setPropertyPapers(propertyPapers.getBytes());
+				doc.setBankStatement(bankStatement.getBytes());
+				doc.setNOC(nOC.getBytes());
+				cu.setDocuments(doc);
+
+			loginServiceI.updateCustomerdata(cu);
+			log.info("info()...Update Data().........");
+			return new ResponseEntity<String> ("Data Updated..!!",HttpStatus.OK);
+			} 
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				return new ResponseEntity<String>("Unable to save Customer Update Registration details!", HttpStatus.OK);
+			}
+		
 	}
 }
