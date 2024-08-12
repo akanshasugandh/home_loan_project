@@ -17,6 +17,8 @@ public interface CustomerLoginServiceI
 
 	public void saveRegForm(CustomerRegForm byCuId);
 
+	public void updateCustomerdata(CustomerRegForm cu);
+
 	
 
 
