@@ -51,7 +51,7 @@ public class SanctionLController {
 		return new ResponseEntity<SanctionLetter>(sl, HttpStatus.OK);
 	}
 	
-	@PostMapping("/saveSL/{CustomerRegId}")
+	@PostMapping("/generateSanction/{CustomerRegId}")
 	public String saveSanctionLetter(@RequestBody SanctionLetter sl, @PathVariable int CustomerRegId)
 	{
 		CustomerRegForm cureg=curegservice.getByCuRegId(CustomerRegId);
