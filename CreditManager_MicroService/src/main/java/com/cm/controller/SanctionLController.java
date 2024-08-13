@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,13 +65,29 @@ public class SanctionLController {
 		sl.setApplicantName(cureg.getFirstName());
 		sl.setMonthlyEMIAmount(emi_value);
 		curegservice.saveRegForm(cureg);
-		
+		sanctionlservice.saveSanctionLetter(sl,CustomerRegId);
 		EmailDetails ed=new EmailDetails();
 		ed.setToEmail(cureg.getEmailId());
 		emailservicei.sendSanctionEmail(sl, ed);
 		log.info("info()....save Sanction letter Details....");
 		return "Sanction letter data saved successfully";
 	}
+	
+	@GetMapping(value="/sendSanctionLPdf/{CustomerRegId}")
+	public String sanctionLOnEmail(@PathVariable int CustomerRegId)
+	{
+		CustomerRegForm cufrm=curegservice.getByCuRegId(CustomerRegId);
+		EmailDetails ed = new EmailDetails();
+		ed.setToEmail(cufrm.getEmailId());
+		cufrm.getSanctionLetter().setApplicantName(cufrm.getFirstName());
+		
+		emailservicei.sendSanctionLonEmail(cufrm.getSanctionLetter(),ed);
+		
+		
+		return "Sanctioned letter send....";
+	}
+	
+
 	
 
 

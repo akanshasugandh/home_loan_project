@@ -1,13 +1,19 @@
 package com.cm.serviceimpl;
 
+import java.io.ByteArrayInputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.cm.model.EmailDetails;
 import com.cm.model.SanctionLetter;
 import com.cm.servicei.EmailServiceI;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailServiceImpl implements EmailServiceI
@@ -28,6 +34,26 @@ public class EmailServiceImpl implements EmailServiceI
 				"Regards,"+"\n"+
 				"Bank");
 		sender.send(message);
+	}
+	@Override
+	public void sendSanctionLonEmail(SanctionLetter letter, EmailDetails ed) {
+		MimeMessage mm= sender.createMimeMessage();
+		try 
+		{
+			MimeMessageHelper helper=new MimeMessageHelper(mm,true);
+			helper.setTo(ed.getToEmail());							
+			helper.setSubject("Sanction Letter For Home Loan");                   
+			helper.setText("Dear "+letter.getApplicantName()+",\nPlease Find Your sanction letter attached.");	
+			helper.addAttachment("letter.pdf",()-> new ByteArrayInputStream(letter.getSanctionDocpdf()));
+			sender.send(mm);
+		} 
+		catch (MessagingException e) 
+		{
+			
+			e.printStackTrace();
+		}
+
+		
 	}
 
 }
