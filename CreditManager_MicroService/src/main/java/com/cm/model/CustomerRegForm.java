@@ -1,11 +1,13 @@
 package com.cm.model;
 
 import java.util.Date;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -67,6 +69,9 @@ public class CustomerRegForm
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private LoanDisbursement loanDisbursement;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Ledger ledger;
 	
 }
  
