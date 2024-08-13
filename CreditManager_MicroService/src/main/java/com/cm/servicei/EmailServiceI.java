@@ -8,4 +8,6 @@ public interface EmailServiceI
 
 	public void sendSanctionEmail(SanctionLetter sl, EmailDetails em);
 	
+	public void sendSanctionLonEmail(SanctionLetter letter, EmailDetails ed);
+	
 }
