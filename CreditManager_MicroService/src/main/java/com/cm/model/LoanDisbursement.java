@@ -19,14 +19,14 @@ public class LoanDisbursement
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer agreementId;
+	private int agreementId;
 	private String applicantName;
-	private Double totalLoanSanctionedAmount;
-	private Double transferedAmount;
+	private double totalLoanSanctionedAmount;
+	private double transferedAmount;
 	@Temporal(TemporalType.DATE)
 	private Date amountPaidDate;
 	private String paymentStatus;
-	private Long bankAccountNumber;
+	private long bankAccountNumber;
 	private String bankBranchName;
 	private String bankIfscNumber;
 		

@@ -87,11 +87,51 @@ public class CustomerRegFormController
 	}
 	
 	
-	@GetMapping("/getCustRegForm/{CustomerRegId}")
+	@GetMapping("/getByCustomerRegId/{CustomerRegId}")
 	public ResponseEntity<CustomerRegForm> getByCustomerRegId(@PathVariable int CustomerRegId)
 	{
 		CustomerRegForm crf=servicei.getByRegId(CustomerRegId);
-		log.info("info()....get Registration Details by registration Id....");
+		log.info("info()....get Registration Details by Customer's registration Id....");
+		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getByName/{firstName}")
+	public ResponseEntity<CustomerRegForm> getByName(@PathVariable String firstName)
+	{
+		CustomerRegForm crf=servicei.getByName(firstName);
+		log.info("info()....get Registration Details by customer name....");
+		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getByEmailId/{emailId}")
+	public ResponseEntity<CustomerRegForm> getByEmailId(@PathVariable String emailId)
+	{
+		CustomerRegForm crf=servicei.getByEmailId(emailId);
+		log.info("info()....get Registration Details by customer emailId....");
+		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getByPassword/{password}")
+	public ResponseEntity<CustomerRegForm> getByPassword(@PathVariable String password)
+	{
+		CustomerRegForm crf=servicei.getByPassword(password);
+		log.info("info()....get Registration Details by customer password....");
+		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getByAadharNum/{aadharCardNumber}")
+	public ResponseEntity<CustomerRegForm> getByAadharNum(@PathVariable String aadharCardNumber)
+	{
+		CustomerRegForm crf=servicei.getByAadharNum(aadharCardNumber);
+		log.info("info()....get Registration Details by customer aadharCardNumber....");
+		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getByPancardNum/{aadharCardNumber}")
+	public ResponseEntity<CustomerRegForm> getByPancardNum(@PathVariable String pancardNumber)
+	{
+		CustomerRegForm crf=servicei.getByPancardNum(pancardNumber);
+		log.info("info()....get Registration Details by customer pancardNumber....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
 }

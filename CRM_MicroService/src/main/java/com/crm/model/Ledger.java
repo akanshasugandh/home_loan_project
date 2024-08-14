@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,18 +20,22 @@ public class Ledger
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer ledgerId;
+	private int ledgerId;
+	@Temporal(TemporalType.DATE)
 	private Date ledgerCreatedDate;
-	private Double totalPrincipalAmount;
-	private Double payableAmountWithInterest;
-	private Integer tenure;
-	private Double monthlyEMI;
-	private Double amountPaidTillDate;
-	private Double remainingAmount;
+	private double totalPrincipalAmount;
+	private double payableAmountWithInterest;
+	private int tenure;
+	private double monthlyEMI;
+	private double amountPaidTillDate;
+	private double remainingAmount;
+	@Temporal(TemporalType.DATE)
 	private Date nextEmiStartDate;
+	@Temporal(TemporalType.DATE)
 	private Date nextEmiEndDate;
 	private String previousEmiStatus;
 	private String currentMonthEmiStatus;
+	@Temporal(TemporalType.DATE)
 	private Date loanEndDate;
 	private String loanStatus;
 	

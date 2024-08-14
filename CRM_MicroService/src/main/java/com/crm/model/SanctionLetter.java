@@ -30,7 +30,7 @@ public class SanctionLetter {
 	
 	private double sanctionAmount;
 	private int loanTenure;
-	private Float rateofInterest; 
+	private float rateofInterest; 
 	private double monthlyEMIAmount;
 	@Lob
 	@Column(length=999999999)
