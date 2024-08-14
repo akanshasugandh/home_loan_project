@@ -26,7 +26,6 @@ public class LoanDisbursementController
 	@Autowired LoanDisbursementServiceI disServiceI;
 	@Autowired CustomerRegFormServiceI curegserviceI;
 	@Autowired EmailServiceI emailservicei;
-	
 	private static Logger log=LoggerFactory.getLogger(LoanDisbursementController.class);
 	
 	@PostMapping("/loanDisburseInfo/{CustomerRegId}")
@@ -80,7 +79,6 @@ public class LoanDisbursementController
 		cureg.getLedger().setCurrentMonthEmiStatus(ledger.getCurrentMonthEmiStatus());
 		cureg.getLedger().setLoanEndDate(ledger.getLoanEndDate());
 		cureg.getLedger().setLoanStatus(cureg.getLoanStatus());
-		
 		curegserviceI.saveRegForm(cureg);
 		EmailDetails ed=new EmailDetails();
 		ed.setToEmail(cureg.getEmailId());
@@ -88,5 +86,4 @@ public class LoanDisbursementController
 		log.info("info()....save ledger generation details...");
 		return new ResponseEntity<Ledger>(cureg.getLedger(), HttpStatus.OK);
 	}
-	
 }
