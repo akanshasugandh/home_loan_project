@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
-
 public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<ApiError> EnquiryNotFoundExceptionhandler(EnquiryNotFoundException e,HttpServletRequest request){
@@ -85,6 +84,17 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     	
     }
+    
+    @ExceptionHandler
+    public ResponseEntity<ApiError> CustomerNotFoundExceptionhandler(CustomerNotFoundException e,HttpServletRequest request){
+  	  ApiError error=new ApiError();
+  	  error.setMessage(e.getMessage());
+  	  error.setPath(request.getRequestURI());
+  	  error.setStatusCode(HttpStatus.NOT_FOUND.value());
+  	  error.setStatusMessage(HttpStatus.NOT_FOUND);
+  	  error.setTimeStamp(new Date());
+  	  return new ResponseEntity<ApiError>(error,HttpStatus.NOT_FOUND);
+  	  }
     
   
 }

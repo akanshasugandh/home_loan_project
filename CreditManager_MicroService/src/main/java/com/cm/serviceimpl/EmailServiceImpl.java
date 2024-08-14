@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailServiceI
 				"Your loan EMI is "+sl.getMonthlyEMIAmount()+". "+"\n"+
 				"You can now login to your account and accept your sanction letter!"+"\n"+
 				"Regards,"+"\n"+
-				"Bank");
+				"AMPRR Finance Ltd.");
 		sender.send(message);
 	}
 	@Override

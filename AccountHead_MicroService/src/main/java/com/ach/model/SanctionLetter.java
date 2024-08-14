@@ -2,10 +2,12 @@ package com.ach.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -28,7 +30,9 @@ public class SanctionLetter {
 	
 	private double sanctionAmount;
 	private int loanTenure;
-	private Float rateofInterest; 
+	private float rateofInterest; 
 	private double monthlyEMIAmount;
+	@Lob
+	@Column(length=999999999)
 	private byte[] sanctionDocpdf;
 }
