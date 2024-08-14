@@ -8,13 +8,13 @@ public interface CustomerRegFormServiceI {
 
 	public CustomerRegForm getByRegId(int customerRegId);
 
-	public CustomerRegForm getByName(String firstName);
+	public CustomerRegForm getByCuRegName(String firstName);
 
-	public CustomerRegForm getByEmailId(String emailId);
+	public CustomerRegForm getByCuRegEmailId(String emailId);
 
-	public CustomerRegForm getByPassword(String password);
+	public CustomerRegForm getByCuRegPassword(String password);
 
-	public CustomerRegForm getByAadharNum(String aadharCardNumber);
+	public CustomerRegForm getByCuRegAadharNum(String aadharCardNumber);
 
-	public CustomerRegForm getByPancardNum(String pancardNumber);
+	public CustomerRegForm getByCuRegPancardNum(String pancardNumber);
 }

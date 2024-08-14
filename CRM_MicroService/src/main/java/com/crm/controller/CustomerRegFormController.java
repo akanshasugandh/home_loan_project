@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.crm.model.CustomerEnquiry;
@@ -95,42 +94,42 @@ public class CustomerRegFormController
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByName/{firstName}")
-	public ResponseEntity<CustomerRegForm> getByName(@PathVariable String firstName)
+	@GetMapping("/getByCuRegName/{firstName}")
+	public ResponseEntity<CustomerRegForm> getByCuRegName(@PathVariable String firstName)
 	{
-		CustomerRegForm crf=servicei.getByName(firstName);
+		CustomerRegForm crf=servicei.getByCuRegName(firstName);
 		log.info("info()....get Registration Details by customer name....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByEmailId/{emailId}")
-	public ResponseEntity<CustomerRegForm> getByEmailId(@PathVariable String emailId)
+	@GetMapping("/getByCuRegEmailId/{emailId}")
+	public ResponseEntity<CustomerRegForm> getByCuRegEmailId(@PathVariable String emailId)
 	{
-		CustomerRegForm crf=servicei.getByEmailId(emailId);
+		CustomerRegForm crf=servicei.getByCuRegEmailId(emailId);
 		log.info("info()....get Registration Details by customer emailId....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByPassword/{password}")
-	public ResponseEntity<CustomerRegForm> getByPassword(@PathVariable String password)
+	@GetMapping("/getByCuRegPassword/{password}")
+	public ResponseEntity<CustomerRegForm> getByCuRegPassword(@PathVariable String password)
 	{
-		CustomerRegForm crf=servicei.getByPassword(password);
+		CustomerRegForm crf=servicei.getByCuRegPassword(password);
 		log.info("info()....get Registration Details by customer password....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByAadharNum/{aadharCardNumber}")
-	public ResponseEntity<CustomerRegForm> getByAadharNum(@PathVariable String aadharCardNumber)
+	@GetMapping("/getByCuRegAadharNum/{aadharCardNumber}")
+	public ResponseEntity<CustomerRegForm> getByCuRegAadharNum(@PathVariable String aadharCardNumber)
 	{
-		CustomerRegForm crf=servicei.getByAadharNum(aadharCardNumber);
+		CustomerRegForm crf=servicei.getByCuRegAadharNum(aadharCardNumber);
 		log.info("info()....get Registration Details by customer aadharCardNumber....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByPancardNum/{aadharCardNumber}")
-	public ResponseEntity<CustomerRegForm> getByPancardNum(@PathVariable String pancardNumber)
+	@GetMapping("/getByCuRegPancardNum/{pancardNumber}")
+	public ResponseEntity<CustomerRegForm> getByCuRegPancardNum(@PathVariable String pancardNumber)
 	{
-		CustomerRegForm crf=servicei.getByPancardNum(pancardNumber);
+		CustomerRegForm crf=servicei.getByCuRegPancardNum(pancardNumber);
 		log.info("info()....get Registration Details by customer pancardNumber....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
