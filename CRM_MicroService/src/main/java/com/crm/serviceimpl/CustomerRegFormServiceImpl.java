@@ -26,9 +26,10 @@ public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
 	public CustomerRegForm getByRegId(int customerRegId)
 	{
 		Optional<CustomerRegForm> crfOp=repository.findById(customerRegId);
-		CustomerRegForm crf=crfOp.get();
+		
 		if(crfOp.isPresent())
 		{
+			CustomerRegForm crf=crfOp.get();
 			return crf;
 		}
 		else
@@ -39,11 +40,12 @@ public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
 	}
 
 	@Override
-	public CustomerRegForm getByName(String firstName) {
+	public CustomerRegForm getByCuRegName(String firstName) {
 		Optional<CustomerRegForm> crfOp=repository.findByName(firstName);
-		CustomerRegForm crf=crfOp.get();
+		
 		if(crfOp.isPresent())
 		{
+			CustomerRegForm crf=crfOp.get();
 			return crf;
 		}
 		else
@@ -53,11 +55,12 @@ public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
 	}
 
 	@Override
-	public CustomerRegForm getByEmailId(String emailId) {
+	public CustomerRegForm getByCuRegEmailId(String emailId) {
 		Optional<CustomerRegForm> crfOp=repository.findByEmailId(emailId);
-		CustomerRegForm crf=crfOp.get();
+		
 		if(crfOp.isPresent())
 		{
+			CustomerRegForm crf=crfOp.get();
 			return crf;
 		}
 		else
@@ -67,11 +70,12 @@ public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
 	}
 
 	@Override
-	public CustomerRegForm getByPassword(String password) {
+	public CustomerRegForm getByCuRegPassword(String password) {
 		Optional<CustomerRegForm> crfOp=repository.findByPassword(password);
-		CustomerRegForm crf=crfOp.get();
+		
 		if(crfOp.isPresent())
 		{
+			CustomerRegForm crf=crfOp.get();
 			return crf;
 		}
 		else
@@ -81,11 +85,12 @@ public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
 	}
 
 	@Override
-	public CustomerRegForm getByAadharNum(String aadharCardNumber) {
+	public CustomerRegForm getByCuRegAadharNum(String aadharCardNumber) {
 		Optional<CustomerRegForm> crfOp=repository.findByAadharNum(aadharCardNumber);
-		CustomerRegForm crf=crfOp.get();
+		
 		if(crfOp.isPresent())
 		{
+			CustomerRegForm crf=crfOp.get();
 			return crf;
 		}
 		else
@@ -95,11 +100,12 @@ public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
 	}
 
 	@Override
-	public CustomerRegForm getByPancardNum(String pancardNumber) {
+	public CustomerRegForm getByCuRegPancardNum(String pancardNumber) {
 		Optional<CustomerRegForm> crfOp=repository.findByPancardNum(pancardNumber);
-		CustomerRegForm crf=crfOp.get();
+		
 		if(crfOp.isPresent())
 		{
+			CustomerRegForm crf=crfOp.get();
 			return crf;
 		}
 		else

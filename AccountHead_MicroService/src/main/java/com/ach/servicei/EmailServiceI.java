@@ -8,6 +8,6 @@ public interface EmailServiceI
 {
 	public void loanDisbursementEmail(LoanDisbursement loanDis, EmailDetails em);
 
-	public void ledgerGeneratedEmail(Ledger led, EmailDetails ed);
+	public void ledgerGeneratedEmail(Ledger led, EmailDetails emd);
 	
 }
