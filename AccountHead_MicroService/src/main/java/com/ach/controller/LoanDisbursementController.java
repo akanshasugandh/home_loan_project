@@ -55,7 +55,6 @@ public class LoanDisbursementController
 	public ResponseEntity<Ledger> generateLedger(@RequestBody Ledger ledger, @PathVariable int CustomerRegId)
 	{
 		CustomerRegForm cureg=curegserviceI.getByCuRegId(CustomerRegId);
-		
 		double principal=cureg.getLoanDisbursement().getTotalLoanSanctionedAmount();
 	    double rate=(cureg.getSanctionLetter().getRateofInterest())/(12*100);
 	    int timesCompounded=1;

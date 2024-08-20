@@ -31,6 +31,7 @@ public class CustomerLoginController
 	@Autowired CustomerRegFormServiceI regFormServiceI;
 	@Autowired CustomerLoginServiceI loginServiceI;
 	@Autowired private EmailServiceI emailservicei;
+	
 	long Otp;
 	int count=0;
 	private static Logger log=LoggerFactory.getLogger(CustomerLoginController.class);
