@@ -2,7 +2,7 @@ package com.crm.servicei;
 
 import com.crm.model.CustomerRegForm;
 
-public interface CustomerRegFormServiceI {
+public interface CustomerRegiFormServiceI {
 
 	public void saveRegForm(CustomerRegForm crf);
 

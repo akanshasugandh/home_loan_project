@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.crm.CustomeException.CustomerNotFoundException;
 import com.crm.model.CustomerRegForm;
 import com.crm.repository.CustomerRegFormRepository;
-import com.crm.servicei.CustomerRegFormServiceI;
+import com.crm.servicei.CustomerRegiFormServiceI;
 
 @Service
-public class CustomerRegFormServiceImpl implements CustomerRegFormServiceI
+public class CustomerRegiFormServiceImpl implements CustomerRegiFormServiceI
 {
 	
 	@Autowired CustomerRegFormRepository repository;

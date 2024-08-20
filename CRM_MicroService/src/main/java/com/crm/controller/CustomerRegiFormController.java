@@ -19,18 +19,18 @@ import com.crm.model.CustomerRegForm;
 import com.crm.model.Document;
 import com.crm.model.EmailDetails;
 import com.crm.servicei.CustomerEnquiryServiceI;
-import com.crm.servicei.CustomerRegFormServiceI;
+import com.crm.servicei.CustomerRegiFormServiceI;
 import com.crm.servicei.EmailServiceI;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-public class CustomerRegFormController
+public class CustomerRegiFormController
 {
-	@Autowired CustomerRegFormServiceI servicei;
+	@Autowired CustomerRegiFormServiceI servicei;
 	@Autowired CustomerEnquiryServiceI enqServicei;
 	@Autowired private EmailServiceI emailservicei;
 	
-	private static Logger log=LoggerFactory.getLogger(CustomerRegFormController.class);
+	private static Logger log=LoggerFactory.getLogger(CustomerRegiFormController.class);
 	
 	@PostMapping(value = "/saveCustRegForm/{customerEnquiryId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> saveCustomerRegForm(@RequestPart("photo") MultipartFile photo, 
@@ -70,7 +70,7 @@ public class CustomerRegFormController
 			crf.setCibilScore(c.getCibilScore());
 			crf.setLoanStatus(c.getLoanStatus());
 			crf.setCustomerData(c);
-			crf.setCibilStatus(c.getCibilStatus());
+			crf.setCibilStatus("CIBIL_Pending");
 			servicei.saveRegForm(crf);
 			EmailDetails ed=new EmailDetails();
 			ed.setToEmail(crf.getEmailId());
