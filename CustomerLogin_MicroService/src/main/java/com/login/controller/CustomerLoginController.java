@@ -1,4 +1,5 @@
 package com.login.controller;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.model.CustomerRegForm;
 import com.login.model.Document;
 import com.login.model.EmailDetails;
+import com.login.model.Ledger;
 import com.login.servicei.CustomerLoginServiceI;
 import com.login.servicei.CustomerRegFormServiceI;
 import com.login.servicei.EmailServiceI;
@@ -26,11 +29,10 @@ import com.login.servicei.EmailServiceI;
 public class CustomerLoginController 
 {
 	@Autowired CustomerRegFormServiceI regFormServiceI;
-	
 	@Autowired CustomerLoginServiceI loginServiceI;
-	
 	@Autowired private EmailServiceI emailservicei;
 	long Otp;
+	int count=0;
 	private static Logger log=LoggerFactory.getLogger(CustomerLoginController.class);
 	
 	@GetMapping("/getAllRegEnquiry")
@@ -92,6 +94,7 @@ public class CustomerLoginController
 		log.info("info()...view Sanction Rejected().........");
 		return new ResponseEntity<String>("sanRejected", HttpStatus.OK);
 	}
+	
 	@PutMapping(value="updateData/{CustomerRegId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String>updateCustomerdata(@PathVariable int CustomerRegId ,@RequestPart("photo") MultipartFile photo, 
 			@RequestPart("aadharCard") MultipartFile aadharCard,
@@ -164,6 +167,81 @@ public class CustomerLoginController
 				e.printStackTrace();
 				return new ResponseEntity<String>("Unable to save Customer Update Registration details!", HttpStatus.OK);
 			}
-		
 	}
+	
+	@GetMapping("/CurrentEMIStatus/{CustomerRegId}")
+	public ResponseEntity<String> CurrentEMIStatus(@RequestBody Ledger led, @PathVariable int CustomerRegId)
+	{
+		CustomerRegForm cureg=regFormServiceI.getByCuRegId(CustomerRegId);
+		
+		return new ResponseEntity<String>("EMI paid", HttpStatus.OK);
+	}
+	
+	@PutMapping("/EMIStatusPay/{CustomerRegId}")
+	public ResponseEntity<String> EMIStatusPay(@RequestBody Ledger led, @PathVariable int CustomerRegId)
+	{
+		CustomerRegForm cureg=regFormServiceI.getByCuRegId(CustomerRegId);
+		Ledger ldg=new Ledger();
+		ldg.setAmountPaidTillDate(cureg.getLedger().getAmountPaidTillDate()+cureg.getSanctionLetter().getMonthlyEMIAmount());
+		ldg.setCurrentMonthEmiStatus("Paid");
+		ldg.setLedgerCreatedDate(new Date());
+		ldg.setLoanEndDate(led.getLoanEndDate());
+		ldg.setLoanStatus(cureg.getLoanStatus());
+		ldg.setMonthlyEMI(cureg.getSanctionLetter().getMonthlyEMIAmount());
+		ldg.setNextEmiStartDate(led.getNextEmiStartDate());
+		ldg.setNextEmiEndDate(led.getNextEmiEndDate());
+		ldg.setPreviousEmiStatus(led.getPreviousEmiStatus());
+		ldg.setPayableAmountWithInterest((cureg.getLedger().getPayableAmountWithInterest()));
+		ldg.setRemainingAmount((cureg.getLedger().getPayableAmountWithInterest()-ldg.getAmountPaidTillDate()));
+		ldg.setTenure(cureg.getLedger().getTenure());
+		ldg.setTotalPrincipalAmount(cureg.getLoanDisbursement().getTotalLoanSanctionedAmount());
+		ldg.setEmiCount(cureg.getLedger().getEmiCount()+1);
+		if(cureg.getLedger().getEmiCount()==cureg.getLedger().getTenure())
+		{
+			ldg.setLoanStatus("LoanClosureSuccess");
+		}
+		cureg.setLedger(ldg);
+		regFormServiceI.saveRegForm(cureg);
+		log.info("info()...EMIStatusPay().........");
+		return new ResponseEntity<String>("EMI Paid", HttpStatus.OK);
+	}
+	
+	@PutMapping("/EMIStatusSkip/{CustomerRegId}")
+	public ResponseEntity<String> EMIStatusSkip(@RequestBody Ledger led, @PathVariable int CustomerRegId)
+	{
+		CustomerRegForm cureg=regFormServiceI.getByCuRegId(CustomerRegId);
+		Ledger ldg=new Ledger();
+		
+		ldg.setAmountPaidTillDate(cureg.getLedger().getAmountPaidTillDate());
+		ldg.setCurrentMonthEmiStatus("Skipped");
+		ldg.setLedgerCreatedDate(new Date());
+		ldg.setLoanEndDate(led.getLoanEndDate());
+
+		ldg.setMonthlyEMI(cureg.getSanctionLetter().getMonthlyEMIAmount());
+		ldg.setNextEmiStartDate(led.getNextEmiStartDate());
+		ldg.setNextEmiEndDate(led.getNextEmiEndDate());
+		ldg.setPreviousEmiStatus(led.getPreviousEmiStatus());
+		if(ldg.getCurrentMonthEmiStatus().equals("Skipped")) 
+	    count++;
+	    System.out.println("count= "+count);
+		if(count==3)
+		{
+			ldg.setLoanStatus("Defaulter");
+		}
+		else
+		{
+			ldg.setLoanStatus(cureg.getLoanStatus());
+		}
+		ldg.setPayableAmountWithInterest((cureg.getLedger().getPayableAmountWithInterest()));
+		ldg.setRemainingAmount((cureg.getLedger().getPayableAmountWithInterest()-ldg.getAmountPaidTillDate()));
+		ldg.setTenure(cureg.getLedger().getTenure());
+		ldg.setTotalPrincipalAmount(cureg.getLoanDisbursement().getTotalLoanSanctionedAmount());
+
+		cureg.setLedger(ldg);
+		regFormServiceI.saveRegForm(cureg);
+		log.info("info()...EMIStatusSkip().........");
+		return new ResponseEntity<String>("EMI Skipped", HttpStatus.OK);
+	}
+	
 }
+

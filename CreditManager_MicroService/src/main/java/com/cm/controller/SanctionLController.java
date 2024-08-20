@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,12 +48,12 @@ public class SanctionLController {
 		
 		emi=(p*r*Math.pow((1+r),t))/(Math.pow((1+r),t)-1);
 		sl.setMonthlyEMIAmount(emi);
-		emi_value=emi;
-		System.out.println("Monthly EMI= "+emi);
+		emi_value=Math.round(emi);
+		System.out.println("Monthly EMI= "+emi_value);
 		return new ResponseEntity<SanctionLetter>(sl, HttpStatus.OK);
 	}
 	
-	@PostMapping("/generateSanction/{CustomerRegId}")
+	@PutMapping("/generateSanction/{CustomerRegId}")
 	public String saveSanctionLetter(@RequestBody SanctionLetter sl, @PathVariable int CustomerRegId)
 	{
 		CustomerRegForm cureg=curegservice.getByCuRegId(CustomerRegId);
@@ -66,6 +67,8 @@ public class SanctionLController {
 		sl.setMonthlyEMIAmount(emi_value);
 		curegservice.saveRegForm(cureg);
 		sanctionlservice.saveSanctionLetter(sl,CustomerRegId);
+		System.out.println("Monthly EMI for genSanc= "+emi_value);
+	
 		EmailDetails ed=new EmailDetails();
 		ed.setToEmail(cureg.getEmailId());
 		emailservicei.sendSanctionEmail(sl, ed);
@@ -86,9 +89,4 @@ public class SanctionLController {
 		
 		return "Sanctioned letter send....";
 	}
-	
-
-	
-
-
 }

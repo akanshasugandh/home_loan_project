@@ -54,7 +54,7 @@ public class SanctionLServiceImpl implements SanctionLServiceI {
 			cf.getSanctionLetter().setSanctionAmount(sl.getSanctionAmount());
 			cf.getSanctionLetter().setRateofInterest(sl.getRateofInterest());
 			cf.getSanctionLetter().setLoanTenure(sl.getLoanTenure());
-			cf.getSanctionLetter().setMonthlyEMIAmount(customerRegId);
+			cf.getSanctionLetter().setMonthlyEMIAmount(sl.getMonthlyEMIAmount());
 		
 			String title = "AMPRR Finance Ltd.";
 

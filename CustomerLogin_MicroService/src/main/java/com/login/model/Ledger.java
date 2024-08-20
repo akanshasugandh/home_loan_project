@@ -38,5 +38,6 @@ public class Ledger
 	@Temporal(TemporalType.DATE)
 	private Date loanEndDate;
 	private String loanStatus;
+	private int emiCount;
 	
 }

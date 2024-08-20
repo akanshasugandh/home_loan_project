@@ -25,7 +25,7 @@ public class Ledger
 	private Date ledgerCreatedDate;
 	private double totalPrincipalAmount;
 	private double payableAmountWithInterest;
-	private Integer tenure;
+	private int tenure;
 	private double monthlyEMI;
 	private double amountPaidTillDate;
 	private double remainingAmount;
@@ -38,5 +38,6 @@ public class Ledger
 	@Temporal(TemporalType.DATE)
 	private Date loanEndDate;
 	private String loanStatus;
+	private int emiCount;
 	
 }

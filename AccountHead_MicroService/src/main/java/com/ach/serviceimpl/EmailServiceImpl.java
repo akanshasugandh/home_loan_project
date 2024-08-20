@@ -5,9 +5,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.ach.model.CustomerRegForm;
 import com.ach.model.EmailDetails;
 import com.ach.model.Ledger;
 import com.ach.model.LoanDisbursement;
+import com.ach.repository.CustomerRegFormRepository;
 import com.ach.servicei.EmailServiceI;
 
 @Service
@@ -27,18 +29,22 @@ public class EmailServiceImpl implements EmailServiceI
 				"For bank account number "+loanDis.getBankAccountNumber()+". "+"\n"+
 				"You can proceed with further steps!"+"\n"+
 				"Regards,"+"\n"+
-				"Bank");
+				"AMPRR Finance limited.");
 		sender.send(message);
 	}
 
-
 	@Override
-	public void ledgerGeneratedEmail(Ledger led, EmailDetails ed)
+	public void ledgerGeneratedEmail(Ledger led, EmailDetails emd)
 	{
 		SimpleMailMessage message=new SimpleMailMessage();
-		message.setTo(ed.getToEmail());
+		message.setTo(emd.getToEmail());
 		message.setSubject("Ledger generated");
-		message.setText("Ledger is generated after successful disbursement of loan.");
+		message.setText("Dear valuable customer, \n"
+				+ "Your loan amount is due on "+led.getNextEmiStartDate()+", with the last date to pay it on "+led.getNextEmiEndDate()+". "
+ 	 			+ "Your total payable amount is "+led.getPayableAmountWithInterest()+". \n"+
+				"We request you to pay it on time to avoid any further complications. \n"+
+				"Regards, \n"+
+				"AMPRR Finance Ltd");
 		sender.send(message);
 	}
 }

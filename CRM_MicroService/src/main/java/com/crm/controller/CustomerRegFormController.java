@@ -70,7 +70,7 @@ public class CustomerRegFormController
 			crf.setCibilScore(c.getCibilScore());
 			crf.setLoanStatus(c.getLoanStatus());
 			crf.setCustomerData(c);
-			crf.setCibilStatus("CIBIL_Pending");
+			crf.setCibilStatus(c.getCibilStatus());
 			servicei.saveRegForm(crf);
 			EmailDetails ed=new EmailDetails();
 			ed.setToEmail(crf.getEmailId());
