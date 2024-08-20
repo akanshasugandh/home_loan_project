@@ -48,8 +48,9 @@ public class SanctionLController {
 		
 		emi=(p*r*Math.pow((1+r),t))/(Math.pow((1+r),t)-1);
 		sl.setMonthlyEMIAmount(emi);
+
 		emi_value=Math.round(emi);
-		System.out.println("Monthly EMI= "+emi_value);
+        System.out.println("Monthly EMI= "+emi_value);
 		return new ResponseEntity<SanctionLetter>(sl, HttpStatus.OK);
 	}
 	
@@ -65,7 +66,7 @@ public class SanctionLController {
 		cureg.getSanctionLetter().setMonthlyEMIAmount(emi_value);
 		sl.setApplicantName(cureg.getFirstName());
 		sl.setMonthlyEMIAmount(emi_value);
-		curegservice.saveRegForm(cureg);
+	
 		sanctionlservice.saveSanctionLetter(sl,CustomerRegId);
 		System.out.println("Monthly EMI for genSanc= "+emi_value);
 	
@@ -83,10 +84,7 @@ public class SanctionLController {
 		EmailDetails ed = new EmailDetails();
 		ed.setToEmail(cufrm.getEmailId());
 		cufrm.getSanctionLetter().setApplicantName(cufrm.getFirstName());
-		
 		emailservicei.sendSanctionLonEmail(cufrm.getSanctionLetter(),ed);
-		
-		
 		return "Sanctioned letter send....";
 	}
 }

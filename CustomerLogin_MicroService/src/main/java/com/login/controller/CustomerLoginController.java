@@ -56,7 +56,6 @@ public class CustomerLoginController
 		{
 			return new ResponseEntity<String> ("Invalied OTP",HttpStatus.OK);
 		}
-		
 	}
 	
 	@PostMapping("/sendOtp/{emailId}/{CustomerRegId}")

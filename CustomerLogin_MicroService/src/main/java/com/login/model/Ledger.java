@@ -39,5 +39,4 @@ public class Ledger
 	private Date loanEndDate;
 	private String loanStatus;
 	private int emiCount;
-	
 }

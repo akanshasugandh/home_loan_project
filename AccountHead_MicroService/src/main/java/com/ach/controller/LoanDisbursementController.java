@@ -61,9 +61,8 @@ public class LoanDisbursementController
 	    int timesCompounded=1;
 	    int tenure=(cureg.getSanctionLetter().getLoanTenure())*12;
 	    double payableAmt = Math.round(principal*Math.pow((1+rate/timesCompounded), (timesCompounded*tenure)));
-		
 	    cureg.getLedger().setLedgerCreatedDate(new Date());
-		cureg.getLedger().setTotalPrincipalAmount(principal);
+	    cureg.getLedger().setTotalPrincipalAmount(principal);
 		ledger.setTotalPrincipalAmount(principal);
 		cureg.getLedger().setPayableAmountWithInterest(payableAmt);
 		ledger.setPayableAmountWithInterest(payableAmt);
