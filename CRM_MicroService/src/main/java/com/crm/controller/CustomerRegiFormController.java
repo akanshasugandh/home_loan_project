@@ -1,5 +1,7 @@
 package com.crm.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,4 +142,120 @@ public class CustomerRegiFormController
 		log.info("info()....get Registration Details by customer pancardNumber....");
 		return new ResponseEntity<CustomerRegForm>(crf, HttpStatus.OK);
 	}
+	
+	
+	// Get Data in Ascending order
+    @GetMapping("/getFirstNameAsc")
+	public ResponseEntity<List<CustomerRegForm>> getFirstNameAsc()
+	{
+	    List<CustomerRegForm> al = servicei.getFirstNameAsc();
+		log.info("info()....get Registration Details by customer FirstName in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		
+	@GetMapping("/getLastNameAsc")
+	public ResponseEntity<List<CustomerRegForm>> getLastNameAsc()
+	{
+		List<CustomerRegForm> al = servicei.getLastNameAsc();
+		log.info("info()....get Registration Details by customer LastName in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		
+	@GetMapping("/getAgeByAsc")
+	public ResponseEntity<List<CustomerRegForm>> getAgeByAsc()
+	{
+		List<CustomerRegForm> al = servicei.getAgeByAsc();
+		log.info("info()....get Registration Details by customer Age in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		
+	@GetMapping("/getContactNumberByAsc")
+	public ResponseEntity<List<CustomerRegForm>> getontactNumberByAsc()
+	{
+		List<CustomerRegForm> al = servicei.getcontactNumberByAsc();
+		log.info("info()....get Registration Details by customer contactNumber in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getEmailIdByAsc")
+	public ResponseEntity<List<CustomerRegForm>> getEmailIdByAsc()
+	{
+		List<CustomerRegForm> al = servicei.getEmailIdByAsc();
+		log.info("info()....get Registration Details by customer EmailId in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getAadharCardNumberByAsc")
+	public ResponseEntity<List<CustomerRegForm>> getaadharCardNumberByAsc()
+	{
+		List<CustomerRegForm> al = servicei.getaadharCardNumberByAsc();
+		log.info("info()....get Registration Details by customer AdharNumber in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getPancardNumberByAsc")
+	public ResponseEntity<List<CustomerRegForm>> getpancardNumberByAsc()
+	{
+		List<CustomerRegForm> al = servicei.getPancardNumberByAsc();
+		log.info("info()....get Registration Details by customer PancardNumber in Ascending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	// Get Data in Descending order
+	@GetMapping("/getFirstNameDesc")
+	public ResponseEntity<List<CustomerRegForm>> getFirstNameDesc()
+	{
+	    List<CustomerRegForm> al = servicei.getFirstNameDesc();
+	    log.info("info()....get Registration Details by customer FirstName in Descending order....");
+	    return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+			
+	@GetMapping("/getLastNameDesc")
+	public ResponseEntity<List<CustomerRegForm>> getLastNameDesc()
+	{
+		List<CustomerRegForm> al = servicei.getLastNameDesc();
+		log.info("info()....get Registration Details by customer LastName in Descending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+			
+	@GetMapping("/getAgeByDesc")
+	public ResponseEntity<List<CustomerRegForm>> getAgeByDesc()
+	{
+		List<CustomerRegForm> al = servicei.getAgeByDesc();
+		log.info("info()....get Registration Details by customer Age in Descending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getContactNumberByDesc")
+	public ResponseEntity<List<CustomerRegForm>> getcontactNumberByDesc()
+	{
+		List<CustomerRegForm> al = servicei.getcontactNumberByDesc();
+		log.info("info()....get Registration Details by customer contactNumber in Descending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getEmailIdByDesc")
+	public ResponseEntity<List<CustomerRegForm>> getEmailIdByDesc()
+	{
+		List<CustomerRegForm> al = servicei.getEmailIdByDesc();
+		log.info("info()....get Registration Details by customer EmailId in Descending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getAadharCardNumberByDesc")
+	public ResponseEntity<List<CustomerRegForm>> getaadharCardNumberByDesc()
+	{
+		List<CustomerRegForm> al = servicei.getaadharCardNumberByDesc();
+		log.info("info()....get Registration Details by customer AdharNumber in Descending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+		 
+	@GetMapping("/getPancardNumberByDesc")
+	public ResponseEntity<List<CustomerRegForm>> getpancardNumberByDesc()
+	{
+		List<CustomerRegForm> al = servicei.getPancardNumberByDesc();
+		log.info("info()....get Registration Details by customer pancardNumber in Descending order....");
+		return new ResponseEntity<List<CustomerRegForm>>(al, HttpStatus.OK);
+	}
+	
 }
