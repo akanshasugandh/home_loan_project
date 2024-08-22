@@ -23,6 +23,9 @@ import com.crm.servicei.CustomerRegiFormServiceI;
 import com.crm.servicei.EmailServiceI;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
+
 @RestController
 public class CustomerRegiFormController
 {
@@ -41,7 +44,7 @@ public class CustomerRegiFormController
 			@RequestPart("bankStatement") MultipartFile bankStatement,
 			@RequestPart("nOC") MultipartFile nOC,
 			@RequestPart("data") String customerRegDetails,
-			@PathVariable int customerEnquiryId)
+			@Valid @PathVariable int customerEnquiryId)
 			
 		{
 		ObjectMapper om=new ObjectMapper();	
@@ -78,9 +81,13 @@ public class CustomerRegiFormController
 			log.info("info()....save Registration Details....");
 			return new ResponseEntity<String>("Customer Registration details saved!", HttpStatus.OK);
 		} 
+		catch (ConstraintViolationException e) {
+			System.out.println(e.getMessage());
+			throw new ConstraintViolationException(e.getMessage(), null);
+		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return new ResponseEntity<String>("Unable to save Customer Registration details!", HttpStatus.OK);
 		}
 	}
