@@ -27,6 +27,8 @@ import com.crm.servicei.CustomerEnquiryServiceI;
 import com.crm.model.EmailDetails;
 import com.crm.servicei.EmailServiceI;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class CustomEnqController {
 
@@ -37,7 +39,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	
 	
 	@PostMapping("/saveEnquiryDetails")
-	public ResponseEntity<String> saveEnquiryDetails(@RequestBody CustomerEnquiry ce)
+	public ResponseEntity<String> saveEnquiryDetails(@Valid @RequestBody CustomerEnquiry ce)
 	{
 		ce.setCustomerEnquiryDate(new Date());
 		ce.setCustomerEnquiryTime(new Time(System.currentTimeMillis()));
@@ -232,7 +234,7 @@ private static Logger log=LoggerFactory.getLogger(CustomEnqController.class);
 	}
 
 	@PutMapping("/updateDetails/{customerEnquiryId}")
-	public ResponseEntity<String> updateAllDetails(@PathVariable int customerEnquiryId,@RequestBody CustomerEnquiry ce)
+	public ResponseEntity<String> updateAllDetails(@PathVariable int customerEnquiryId,@Valid @RequestBody CustomerEnquiry ce)
 	{
 	    CustomerEnquiry cust  = servicei.getByCuId(customerEnquiryId);
 	    cust.setFirstName(ce.getFirstName());
